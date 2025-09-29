@@ -17,6 +17,9 @@ public class Result implements Serializable {
     private String msg; //错误信息
     private Object data; //数据
 
+    private Result() {
+    }
+
     public static Result success() {
         Result result = new Result();
         result.code = 1;
