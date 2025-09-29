@@ -1,5 +1,6 @@
 package com.qk.management.service.impl;
 
+import com.qk.common.PageResult;
 import com.qk.entity.Dept;
 import com.qk.management.mapper.DeptMapper;
 import com.qk.management.service.DeptService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @Author: hjh
@@ -17,6 +19,20 @@ import java.time.LocalDateTime;
 public class DeptServiceImpl implements DeptService {
     @Autowired
     private DeptMapper deptMapper;
+
+    @Override
+    public PageResult<Dept> page(String name, Integer status, Integer page, Integer pageSize) {
+        Integer total = deptMapper.count(name,status);
+
+        Integer offset = (page - 1) * pageSize;
+
+        List<Dept> rows = deptMapper.select(name,status,offset,pageSize);
+
+        return PageResult.<Dept>builder()
+                .total(total)
+                .rows(rows)
+                .build();
+    }
 
     @Override
     public void addDept(Dept dept) {
