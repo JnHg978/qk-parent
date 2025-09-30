@@ -20,6 +20,12 @@ public class DeptServiceImpl implements DeptService {
     @Autowired
     private DeptMapper deptMapper;
 
+
+    @Override
+    public void deleteById(Integer id) {
+        deptMapper.deleteById(id);
+    }
+
     @Override
     public PageResult<Dept> page(String name, Integer status, Integer page, Integer pageSize) {
         Integer total = deptMapper.count(name,status);
