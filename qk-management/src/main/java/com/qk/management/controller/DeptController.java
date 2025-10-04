@@ -19,6 +19,12 @@ public class DeptController {
     @Autowired
     private DeptService deptService;
 
+    @PutMapping
+    public Result updateById(@RequestBody Dept dept){
+        deptService.updateById(dept);
+        return Result.success();
+    }
+
     @GetMapping("/{id}")
     public Result selectById(@PathVariable("id") Integer id){
         return Result.success(deptService.selectById(id));

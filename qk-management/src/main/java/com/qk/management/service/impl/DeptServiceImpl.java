@@ -20,6 +20,11 @@ public class DeptServiceImpl implements DeptService {
     @Autowired
     private DeptMapper deptMapper;
 
+    @Override
+    public void updateById(Dept dept) {
+        dept.setUpdateTime(LocalDateTime.now());
+        deptMapper.updateById(dept);
+    }
 
     @Override
     public Dept selectById(Integer id) {

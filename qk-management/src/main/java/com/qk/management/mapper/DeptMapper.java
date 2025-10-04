@@ -13,6 +13,8 @@ import java.util.List;
 @Mapper
 public interface DeptMapper {
 
+    void updateById(Dept dept);
+
     @Select("select * from dept where id = #{id}")
     Dept selectById(Integer id);
 

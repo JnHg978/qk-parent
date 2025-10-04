@@ -9,6 +9,8 @@ import com.qk.entity.Dept;
  * @Description:
  */
 public interface DeptService {
+    void updateById(Dept dept);
+
     Dept selectById(Integer id);
 
     void deleteById(Integer id);
