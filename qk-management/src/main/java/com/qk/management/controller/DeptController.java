@@ -7,6 +7,8 @@ import com.qk.management.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @Author: hjh
  * @Date: 2025/09/29 10:49
@@ -18,6 +20,12 @@ public class DeptController {
 
     @Autowired
     private DeptService deptService;
+
+    @GetMapping("/list")
+    public Result getAll(){
+        List<Dept> deptList = deptService.getAll();
+        return Result.success(deptList);
+    }
 
     @PutMapping
     public Result updateById(@RequestBody Dept dept){

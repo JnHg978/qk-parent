@@ -12,6 +12,8 @@ import java.util.List;
  */
 @Mapper
 public interface DeptMapper {
+    @Select("select * from dept")
+    List<Dept> getAll();
 
     void updateById(Dept dept);
 
