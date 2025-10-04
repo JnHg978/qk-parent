@@ -1,10 +1,7 @@
 package com.qk.management.mapper;
 
 import com.qk.entity.Dept;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -15,6 +12,9 @@ import java.util.List;
  */
 @Mapper
 public interface DeptMapper {
+
+    @Select("select * from dept where id = #{id}")
+    Dept selectById(Integer id);
 
     @Delete("delete from dept where id = #{id}")
     void deleteById(Integer id);

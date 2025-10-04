@@ -9,10 +9,12 @@ import com.qk.entity.Dept;
  * @Description:
  */
 public interface DeptService {
+    Dept selectById(Integer id);
 
     void deleteById(Integer id);
 
     void addDept(Dept dept);
 
     PageResult<Dept> page(String name, Integer status, Integer page, Integer pageSize);
+
 }

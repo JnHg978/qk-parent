@@ -19,6 +19,11 @@ public class DeptController {
     @Autowired
     private DeptService deptService;
 
+    @GetMapping("/{id}")
+    public Result selectById(@PathVariable("id") Integer id){
+        return Result.success(deptService.selectById(id));
+    }
+
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable("id") Integer id){
         deptService.deleteById(id);
