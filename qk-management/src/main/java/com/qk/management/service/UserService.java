@@ -19,4 +19,6 @@ public interface UserService {
     void deleteById(List<Integer> id);
 
     User getById(Integer id);
+
+    void updateById(User user);
 }

@@ -50,4 +50,11 @@ public class UserController {
         User user = userService.getById(id);
         return Result.success(user);
     }
+
+    @PutMapping
+    public Result updateById(@RequestBody User user) {
+        log.info("更新用户: {}", user);
+        userService.updateById(user);
+        return Result.success();
+    }
 }

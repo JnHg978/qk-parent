@@ -52,4 +52,10 @@ public class UserServiceImpl implements UserService {
     public User getById(Integer id) {
         return userMapper.selectById(id);
     }
+
+    @Override
+    public void updateById(User user) {
+        user.setUpdateTime(LocalDateTime.now());
+        userMapper.updateById(user);
+    }
 }
