@@ -7,6 +7,7 @@ import com.qk.management.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -30,5 +31,12 @@ public class ActivityServiceImpl implements ActivityService {
                 .total( count)
                 .rows(result)
                 .build();
+    }
+
+    @Override
+    public void addActivity(Activity activity) {
+        activity.setCreateTime(LocalDateTime.now());
+        activity.setUpdateTime(LocalDateTime.now());
+        activityMapper.insert(activity);
     }
 }

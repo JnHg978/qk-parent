@@ -2,6 +2,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qk.management.mapper.ActivityMapper">
+    <insert id="insert">
+        insert into activity(channel, name, start_time, end_time, description, type,discount, voucher, create_time, update_time)
+        values (#{channel}, #{name}, #{startTime}, #{endTime}, #{description}, #{type}, #{discount}, #{voucher}, #{createTime}, #{updateTime})
+    </insert>
 
     <select id="count" resultType="java.lang.Integer">
         select count(*) from activity

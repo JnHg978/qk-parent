@@ -6,9 +6,7 @@ import com.qk.entity.Activity;
 import com.qk.management.service.ActivityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author: hjh
@@ -24,7 +22,7 @@ public class ActivityController {
     private ActivityService activityService;
 
     // 分页
-    @RequestMapping
+    @GetMapping
     public Result page(@RequestParam(required = false) Integer channel,
                        @RequestParam(required = false) Integer type,
                        @RequestParam(required = false) Integer status,
@@ -32,5 +30,12 @@ public class ActivityController {
                        @RequestParam(defaultValue = "10") Integer pageSize) {
         PageResult<Activity> result = activityService.page(channel, type, status, page, pageSize);
         return Result.success(result);
+    }
+
+    @PostMapping
+    public Result addActivity(@RequestBody Activity activity) {
+        log.info("添加活动: {}", activity);
+        activityService.addActivity(activity);
+        return Result.success();
     }
 }
