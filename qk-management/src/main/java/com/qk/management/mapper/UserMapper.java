@@ -16,4 +16,6 @@ public interface UserMapper {
     Integer count(UserDTO userDTO);
 
     List<User> select(UserDTO userDTO);
+
+    void insert(User user);
 }

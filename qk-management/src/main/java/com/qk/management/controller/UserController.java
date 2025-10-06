@@ -27,4 +27,11 @@ public class UserController {
         PageResult<User> result = userService.page(userDTO);
         return Result.success(result);
     }
+
+    @PostMapping
+    public Result addUser(@RequestBody User user) {
+        log.info("添加用户: {}", user);
+        userService.addUser(user);
+        return Result.success();
+    }
 }

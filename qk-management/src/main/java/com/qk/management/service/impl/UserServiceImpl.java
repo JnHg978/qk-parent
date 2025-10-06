@@ -7,7 +7,9 @@ import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -30,5 +32,13 @@ public class UserServiceImpl implements UserService {
                 .total(total)
                 .rows(userList)
                 .build();
+    }
+
+    @Override
+    public void addUser(User user) {
+        user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword()+"123").getBytes()));
+        user.setCreateTime(LocalDateTime.now());
+        user.setUpdateTime(LocalDateTime.now());
+        userMapper.insert(user);
     }
 }
