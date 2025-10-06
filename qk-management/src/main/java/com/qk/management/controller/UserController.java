@@ -57,4 +57,11 @@ public class UserController {
         userService.updateById(user);
         return Result.success();
     }
+
+    @GetMapping("/list")
+    public Result getAll() {
+        log.info("查询所有用户");
+        List<User> userList = userService.getAll();
+        return Result.success(userList);
+    }
 }

@@ -21,4 +21,6 @@ public interface UserService {
     User getById(Integer id);
 
     void updateById(User user);
+
+    List<User> getAll();
 }

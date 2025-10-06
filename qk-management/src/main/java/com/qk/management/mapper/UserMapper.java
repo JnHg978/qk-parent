@@ -27,4 +27,7 @@ public interface UserMapper {
     User selectById(Integer id);
 
     void updateById(User user);
+
+    @Select("select * from user")
+    List<User> getAll();
 }

@@ -58,4 +58,9 @@ public class UserServiceImpl implements UserService {
         user.setUpdateTime(LocalDateTime.now());
         userMapper.updateById(user);
     }
+
+    @Override
+    public List<User> getAll() {
+        return userMapper.getAll();
+    }
 }
