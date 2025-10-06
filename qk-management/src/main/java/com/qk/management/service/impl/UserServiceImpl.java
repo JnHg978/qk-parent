@@ -72,4 +72,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getByDept(Integer deptId) {
         return userMapper.selectByDept(deptId);
     }
+
+    @Override
+    public Integer countByRoleId(Integer id) {
+        return userMapper.countByRoleId(id);
+    }
 }

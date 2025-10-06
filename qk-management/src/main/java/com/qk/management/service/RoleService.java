@@ -16,4 +16,6 @@ public interface RoleService {
     void addRole(Role role);
 
     List<Role> getAll();
+
+    void deleteById(Integer id);
 }

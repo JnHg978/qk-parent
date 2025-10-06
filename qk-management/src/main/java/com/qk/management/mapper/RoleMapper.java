@@ -1,6 +1,7 @@
 package com.qk.management.mapper;
 
 import com.qk.entity.Role;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -21,4 +22,7 @@ public interface RoleMapper {
 
     @Select("select id, name, label, remark, create_time, update_time from role")
     List<Role> selectAll();
+
+    @Delete("delete from role where id = #{id}")
+    void deleteById(Integer id);
 }

@@ -21,6 +21,9 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleMapper roleMapper;
 
+    @Autowired
+    private UserServiceImpl userService;
+
     @Override
     public PageResult<Role> page(String name, String label, Integer page, Integer pageSize) {
         Integer total = roleMapper.count(name, label);
@@ -42,5 +45,15 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> getAll() {
         return roleMapper.selectAll();
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        // 首先确定该角色下没有用户
+        if (userService.countByRoleId(id) > 0) {
+            throw new RuntimeException("该角色下有用户，请先删除用户");
+        }else {
+            roleMapper.deleteById(id);
+        }
     }
 }

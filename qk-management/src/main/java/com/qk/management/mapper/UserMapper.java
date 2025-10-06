@@ -33,4 +33,7 @@ public interface UserMapper {
     List<User> selectByRole(String roleLabel);
 
     List<User> selectByDept(Integer deptId);
+
+    @Select("select count(*) from user where role_id = #{id}")
+    Integer countByRoleId(Integer id);
 }

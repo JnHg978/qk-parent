@@ -46,4 +46,11 @@ public class RoleController {
         List<Role> roleList = roleService.getAll();
         return Result.success(roleList);
     }
+
+    @DeleteMapping("/{id}")
+    public Result deleteById(@PathVariable Integer id){
+        log.info("删除角色, id: {}", id);
+        roleService.deleteById(id);
+        return Result.success();
+    }
 }
