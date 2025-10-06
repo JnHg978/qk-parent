@@ -27,4 +27,7 @@ public interface ActivityMapper {
     Activity selectById(Integer id);
 
     void updateById(Activity activity);
+
+    @Select("select * from activity where type = #{type}")
+    List<Activity> getByType(Integer type);
 }

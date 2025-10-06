@@ -3,6 +3,8 @@ package com.qk.management.service;
 import com.qk.common.PageResult;
 import com.qk.entity.Activity;
 
+import java.util.List;
+
 /**
  * @Author: hjh
  * @Date: 2025/10/06 18:08
@@ -19,4 +21,6 @@ public interface ActivityService {
     Activity getById(Integer id);
 
     void updateById(Activity activity);
+
+    List<Activity> getByType(Integer type);
 }

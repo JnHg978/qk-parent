@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @Author: hjh
  * @Date: 2025/10/06 18:08
@@ -57,5 +59,12 @@ public class ActivityController {
         log.info("修改部门: {}", activity);
         activityService.updateById(activity);
         return Result.success();
+    }
+
+    @GetMapping("/type/{type}")
+    public Result getByType(@PathVariable("type") Integer type) {
+        log.info("查询部门的type: {}", type);
+        List<Activity> activities = activityService.getByType(type);
+        return Result.success(activities);
     }
 }

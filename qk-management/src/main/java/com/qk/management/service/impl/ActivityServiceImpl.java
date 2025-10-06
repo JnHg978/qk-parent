@@ -55,4 +55,9 @@ public class ActivityServiceImpl implements ActivityService {
         activity.setUpdateTime(LocalDateTime.now());
         activityMapper.updateById(activity);
     }
+
+    @Override
+    public List<Activity> getByType(Integer type) {
+        return activityMapper.getByType(type);
+    }
 }
