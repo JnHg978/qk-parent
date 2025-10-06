@@ -6,6 +6,30 @@
         insert into course(name,subject,price,target,description,create_time,update_time)
         values(#{name},#{subject},#{price},#{target},#{description},#{createTime},#{updateTime})
     </insert>
+    <update id="updateById">
+        update course
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="subject != null">
+                subject = #{subject},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="target != null">
+                target = #{target},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
     <select id="select" resultType="com.qk.entity.Course">
         select * from course

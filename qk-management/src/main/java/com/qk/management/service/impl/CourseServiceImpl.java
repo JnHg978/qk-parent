@@ -48,4 +48,10 @@ public class CourseServiceImpl implements CourseService {
     public Course getById(Integer id) {
         return courseMapper.selectById(id);
     }
+
+    @Override
+    public void updateById(Course course) {
+        course.setUpdateTime(LocalDateTime.now());
+        courseMapper.updateById(course);
+    }
 }

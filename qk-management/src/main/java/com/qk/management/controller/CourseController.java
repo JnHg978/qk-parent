@@ -52,4 +52,11 @@ public class CourseController {
         log.info("查询课程的id: {}", id);
         return Result.success(courseService.getById(id));
     }
+
+    @PutMapping
+    public Result updateById(@RequestBody Course course){
+        log.info("更新课程: {}", course);
+        courseService.updateById(course);
+        return Result.success();
+    }
 }

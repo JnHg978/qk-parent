@@ -25,4 +25,6 @@ public interface CourseMapper {
 
     @Select("select * from course where id = #{id}")
     Course selectById(Integer id);
+
+    void updateById(Course course);
 }
