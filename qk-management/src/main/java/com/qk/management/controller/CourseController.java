@@ -65,4 +65,10 @@ public class CourseController {
         log.info("查询所有课程");
         return Result.success(courseService.getAll());
     }
+
+    @GetMapping("/subject/{subject}")
+    public Result getBySubject(@PathVariable Integer subject){
+        log.info("查询课程的学科: {}", subject);
+        return Result.success(courseService.getBySubject(subject));
+    }
 }

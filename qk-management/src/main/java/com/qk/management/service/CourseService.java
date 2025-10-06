@@ -22,4 +22,6 @@ public interface CourseService {
     void updateById(Course course);
 
     List<Course> getAll();
+
+    List<Course> getBySubject(Integer subject);
 }

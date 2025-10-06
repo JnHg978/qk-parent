@@ -30,4 +30,7 @@ public interface CourseMapper {
 
     @Select("select * from course")
     List<Course> selectAll();
+
+    @Select("select * from course where subject = #{subject}")
+    List<Course> getBySubject(Integer subject);
 }

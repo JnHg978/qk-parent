@@ -59,4 +59,9 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> getAll() {
         return courseMapper.selectAll();
     }
+
+    @Override
+    public List<Course> getBySubject(Integer subject) {
+        return courseMapper.getBySubject(subject);
+    }
 }
