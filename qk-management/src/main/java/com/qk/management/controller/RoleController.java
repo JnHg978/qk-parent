@@ -53,4 +53,11 @@ public class RoleController {
         roleService.deleteById(id);
         return Result.success();
     }
+
+    @GetMapping("/{id}")
+    public Result selectById(@PathVariable Integer id){
+        log.info("查询角色, id: {}", id);
+        Role role = roleService.selectById(id);
+        return Result.success(role);
+    }
 }

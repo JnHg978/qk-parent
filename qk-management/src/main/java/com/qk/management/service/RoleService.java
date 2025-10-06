@@ -18,4 +18,6 @@ public interface RoleService {
     List<Role> getAll();
 
     void deleteById(Integer id);
+
+    Role selectById(Integer id);
 }

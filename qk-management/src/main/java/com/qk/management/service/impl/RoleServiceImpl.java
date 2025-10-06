@@ -56,4 +56,9 @@ public class RoleServiceImpl implements RoleService {
             roleMapper.deleteById(id);
         }
     }
+
+    @Override
+    public Role selectById(Integer id) {
+        return roleMapper.selectById(id);
+    }
 }

@@ -25,4 +25,7 @@ public interface RoleMapper {
 
     @Delete("delete from role where id = #{id}")
     void deleteById(Integer id);
+
+    @Select("select id, name, label, remark, create_time, update_time from role where id = #{id}")
+    Role selectById(Integer id);
 }
