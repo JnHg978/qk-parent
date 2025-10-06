@@ -38,4 +38,9 @@ public class RoleServiceImpl implements RoleService {
         role.setUpdateTime(LocalDateTime.now());
         roleMapper.insert(role);
     }
+
+    @Override
+    public List<Role> getAll() {
+        return roleMapper.selectAll();
+    }
 }

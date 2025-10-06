@@ -2,6 +2,7 @@ package com.qk.management.mapper;
 
 import com.qk.entity.Role;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -17,4 +18,7 @@ public interface RoleMapper {
     List<Role> select(String name, String label, Integer offset, Integer pageSize);
 
     void insert(Role role);
+
+    @Select("select id, name, label, remark, create_time, update_time from role")
+    List<Role> selectAll();
 }
