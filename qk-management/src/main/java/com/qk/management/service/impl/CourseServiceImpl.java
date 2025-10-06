@@ -38,4 +38,9 @@ public class CourseServiceImpl implements CourseService {
         course.setUpdateTime(LocalDateTime.now());
         courseMapper.insert(course);
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        courseMapper.deleteById(id);
+    }
 }

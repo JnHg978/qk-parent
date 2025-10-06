@@ -5,6 +5,7 @@ import com.qk.common.Result;
 import com.qk.entity.Course;
 import com.qk.management.service.CourseService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,4 +39,13 @@ public class CourseController {
         courseService.addCourse(course);
         return Result.success();
     }
+
+    @DeleteMapping("/{id}")
+    public Result deleteById(@PathVariable("id") Integer id) {
+        log.info("删除课程的id: {}", id);
+        courseService.deleteById(id);
+        return Result.success();
+    }
+
+
 }

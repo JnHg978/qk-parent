@@ -1,6 +1,7 @@
 package com.qk.management.mapper;
 
 import com.qk.entity.Course;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,4 +18,7 @@ public interface CourseMapper {
     Integer count(String name, Integer subject, Integer target);
 
     void insert(Course course);
+
+    @Delete("delete from course where id = #{id}")
+    void deleteById(Integer id);
 }
