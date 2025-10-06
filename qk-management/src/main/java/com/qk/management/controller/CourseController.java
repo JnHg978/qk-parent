@@ -59,4 +59,10 @@ public class CourseController {
         courseService.updateById(course);
         return Result.success();
     }
+
+    @GetMapping("/list")
+    public Result getAll(){
+        log.info("查询所有课程");
+        return Result.success(courseService.getAll());
+    }
 }

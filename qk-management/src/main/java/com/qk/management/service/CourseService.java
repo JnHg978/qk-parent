@@ -3,6 +3,8 @@ package com.qk.management.service;
 import com.qk.common.PageResult;
 import com.qk.entity.Course;
 
+import java.util.List;
+
 /**
  * @Author: hjh
  * @Date: 2025/10/06 16:14
@@ -18,4 +20,6 @@ public interface CourseService {
     Course getById(Integer id);
 
     void updateById(Course course);
+
+    List<Course> getAll();
 }

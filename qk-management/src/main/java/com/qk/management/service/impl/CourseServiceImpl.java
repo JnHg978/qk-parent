@@ -54,4 +54,9 @@ public class CourseServiceImpl implements CourseService {
         course.setUpdateTime(LocalDateTime.now());
         courseMapper.updateById(course);
     }
+
+    @Override
+    public List<Course> getAll() {
+        return courseMapper.selectAll();
+    }
 }
