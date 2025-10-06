@@ -1,0 +1,36 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qk.management.mapper.CourseMapper">
+
+    <select id="select" resultType="com.qk.entity.Course">
+        select * from course
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="subject != null">
+                and subject = #{subject}
+            </if>
+            <if test="target != null">
+                and target = #{target}
+            </if>
+        </where>
+        order by update_time desc
+        limit #{offset},#{pageSize}
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from course
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="subject != null">
+                and subject = #{subject}
+            </if>
+            <if test="target != null">
+                and target = #{target}
+            </if>
+        </where>
+    </select>
+</mapper>

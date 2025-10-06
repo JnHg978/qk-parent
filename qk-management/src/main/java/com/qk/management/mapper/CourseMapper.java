@@ -1,6 +1,9 @@
 package com.qk.management.mapper;
 
+import com.qk.entity.Course;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @Author: hjh
@@ -9,4 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CourseMapper {
+    List<Course> select(String name, Integer subject, Integer target, Integer offset, Integer pageSize);
+
+    Integer count(String name, Integer subject, Integer target);
 }
