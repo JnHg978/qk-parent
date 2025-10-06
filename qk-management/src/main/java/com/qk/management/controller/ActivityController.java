@@ -44,4 +44,18 @@ public class ActivityController {
         activityService.deleteById(id);
         return Result.success();
     }
+
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable("id") Integer id) {
+        log.info("查询部门的id: {}", id);
+        Activity activity = activityService.getById(id);
+        return Result.success(activity);
+    }
+
+    @PutMapping
+    public Result updateById(@RequestBody Activity activity) {
+        log.info("修改部门: {}", activity);
+        activityService.updateById(activity);
+        return Result.success();
+    }
 }

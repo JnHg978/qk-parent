@@ -44,4 +44,15 @@ public class ActivityServiceImpl implements ActivityService {
     public void deleteById(Integer id) {
         activityMapper.deleteById(id);
     }
+
+    @Override
+    public Activity getById(Integer id) {
+        return activityMapper.selectById(id);
+    }
+
+    @Override
+    public void updateById(Activity activity) {
+        activity.setUpdateTime(LocalDateTime.now());
+        activityMapper.updateById(activity);
+    }
 }

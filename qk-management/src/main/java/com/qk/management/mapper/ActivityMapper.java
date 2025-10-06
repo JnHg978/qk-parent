@@ -3,6 +3,7 @@ package com.qk.management.mapper;
 import com.qk.entity.Activity;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -21,4 +22,9 @@ public interface ActivityMapper {
 
     @Delete("delete from activity where id = #{id}")
     void deleteById(Integer id);
+
+    @Select("select * from activity where id = #{id}")
+    Activity selectById(Integer id);
+
+    void updateById(Activity activity);
 }

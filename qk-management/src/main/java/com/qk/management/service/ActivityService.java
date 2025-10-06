@@ -15,4 +15,8 @@ public interface ActivityService {
     void addActivity(Activity activity);
 
     void deleteById(Integer id);
+
+    Activity getById(Integer id);
+
+    void updateById(Activity activity);
 }
