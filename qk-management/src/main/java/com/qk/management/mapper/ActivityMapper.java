@@ -1,0 +1,12 @@
+package com.qk.management.mapper;
+
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * @Author: hjh
+ * @Date: 2025/10/06 18:10
+ * @Description:
+ */
+@Mapper
+public interface ActivityMapper {
+}
