@@ -30,4 +30,6 @@ public interface UserMapper {
 
     @Select("select * from user")
     List<User> getAll();
+
+    List<User> selectByRole(String roleLabel);
 }

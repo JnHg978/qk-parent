@@ -23,4 +23,6 @@ public interface UserService {
     void updateById(User user);
 
     List<User> getAll();
+
+    List<User> getByRole(String roleLabel);
 }

@@ -63,4 +63,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getAll() {
         return userMapper.getAll();
     }
+
+    @Override
+    public List<User> getByRole(String roleLabel) {
+        return userMapper.selectByRole(roleLabel);
+    }
 }

@@ -64,4 +64,11 @@ public class UserController {
         List<User> userList = userService.getAll();
         return Result.success(userList);
     }
+
+    @GetMapping("/role/{roleLabel}")
+    public Result getByRole(@PathVariable("roleLabel") String roleLabel) {
+        log.info("查询角色为{}的用户", roleLabel);
+        List<User> userList = userService.getByRole(roleLabel);
+        return Result.success(userList);
+    }
 }
