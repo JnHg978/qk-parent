@@ -3,4 +3,50 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qk.management.mapper.ActivityMapper">
 
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from activity
+        <where>
+            <if test="channel != null">
+                and channel = #{channel}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="status != null">
+                <if test="status == 1">
+                    AND start_time &gt; NOW()
+                </if>
+                <if test="status == 2">
+                    AND start_time &lt;= NOW() AND end_time &gt;= NOW()
+                </if>
+                <if test="status == 3">
+                    AND end_time &lt; NOW()
+                </if>
+            </if>
+        </where>
+    </select>
+    <select id="select" resultType="com.qk.entity.Activity">
+        select * from activity
+        <where>
+            <if test="channel != null">
+                and channel = #{channel}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="status != null">
+                <if test="status == 1">
+                    AND start_time &gt; NOW()
+                </if>
+                <if test="status == 2">
+                    AND start_time &lt;= NOW() AND end_time &gt;= NOW()
+                </if>
+                <if test="status == 3">
+                    AND end_time &lt; NOW()
+                </if>
+            </if>
+        </where>
+        order by update_time desc
+        limit #{offset},#{pageSize}
+    </select>
 </mapper>

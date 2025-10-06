@@ -1,6 +1,9 @@
 package com.qk.management.mapper;
 
+import com.qk.entity.Activity;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @Author: hjh
@@ -9,4 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ActivityMapper {
+    Integer count(Integer channel, Integer type, Integer status);
+
+    List<Activity> select(Integer channel, Integer type, Integer status, Integer offset, Integer pageSize);
 }

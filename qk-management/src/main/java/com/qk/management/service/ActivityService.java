@@ -1,9 +1,14 @@
 package com.qk.management.service;
 
+import com.qk.common.PageResult;
+import com.qk.entity.Activity;
+
 /**
  * @Author: hjh
  * @Date: 2025/10/06 18:08
  * @Description:
  */
 public interface ActivityService {
+
+    PageResult<Activity> page(Integer channel, Integer type, Integer status, Integer page, Integer pageSize);
 }
