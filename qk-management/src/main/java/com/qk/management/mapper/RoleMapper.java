@@ -15,4 +15,6 @@ public interface RoleMapper {
     Integer count(String name, String label);
 
     List<Role> select(String name, String label, Integer offset, Integer pageSize);
+
+    void insert(Role role);
 }

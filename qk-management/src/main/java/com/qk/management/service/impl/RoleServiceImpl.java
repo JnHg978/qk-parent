@@ -7,6 +7,7 @@ import com.qk.management.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -29,5 +30,12 @@ public class RoleServiceImpl implements RoleService {
                 .total( total)
                 .rows(roleList)
                 .build();
+    }
+
+    @Override
+    public void addRole(Role role) {
+        role.setCreateTime(LocalDateTime.now());
+        role.setUpdateTime(LocalDateTime.now());
+        roleMapper.insert(role);
     }
 }
