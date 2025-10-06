@@ -1,6 +1,9 @@
 package com.qk.management.mapper;
 
+import com.qk.entity.Role;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @Author: hjh
@@ -9,4 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface RoleMapper {
+    Integer count(String name, String label);
+
+    List<Role> select(String name, String label, Integer offset, Integer pageSize);
 }
