@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -67,5 +66,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getByRole(String roleLabel) {
         return userMapper.selectByRole(roleLabel);
+    }
+
+    @Override
+    public List<User> getByDept(Integer deptId) {
+        return userMapper.selectByDept(deptId);
     }
 }

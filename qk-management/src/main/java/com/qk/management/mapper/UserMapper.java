@@ -2,7 +2,6 @@ package com.qk.management.mapper;
 
 import com.qk.dto.UserDTO;
 import com.qk.entity.User;
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -32,4 +31,6 @@ public interface UserMapper {
     List<User> getAll();
 
     List<User> selectByRole(String roleLabel);
+
+    List<User> selectByDept(Integer deptId);
 }

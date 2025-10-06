@@ -25,4 +25,6 @@ public interface UserService {
     List<User> getAll();
 
     List<User> getByRole(String roleLabel);
+
+    List<User> getByDept(Integer deptId);
 }

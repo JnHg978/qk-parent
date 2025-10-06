@@ -103,4 +103,11 @@
         where r.label = #{roleLabel}
         order by update_time desc
     </select>
+    <select id="selectByDept" resultType="com.qk.entity.User">
+        select u.id, u.name, u.username, u.password, u.phone, u.email, u.gender, u.status, u.image, u.remark, u.create_time,
+        u.update_time, u.dept_id, u.role_id
+        from user u
+        where u.dept_id = #{deptId}
+        order by update_time desc
+    </select>
 </mapper>

@@ -71,4 +71,11 @@ public class UserController {
         List<User> userList = userService.getByRole(roleLabel);
         return Result.success(userList);
     }
+
+    @GetMapping("/dept/{deptId}")
+    public Result getByDept(@PathVariable("deptId") Integer deptId) {
+        log.info("查询部门为{}的用户", deptId);
+        List<User> userList = userService.getByDept(deptId);
+        return Result.success(userList);
+    }
 }
