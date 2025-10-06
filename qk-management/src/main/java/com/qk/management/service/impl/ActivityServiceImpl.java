@@ -39,4 +39,9 @@ public class ActivityServiceImpl implements ActivityService {
         activity.setUpdateTime(LocalDateTime.now());
         activityMapper.insert(activity);
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        activityMapper.deleteById(id);
+    }
 }

@@ -21,7 +21,6 @@ public class ActivityController {
     @Autowired
     private ActivityService activityService;
 
-    // 分页
     @GetMapping
     public Result page(@RequestParam(required = false) Integer channel,
                        @RequestParam(required = false) Integer type,
@@ -36,6 +35,13 @@ public class ActivityController {
     public Result addActivity(@RequestBody Activity activity) {
         log.info("添加活动: {}", activity);
         activityService.addActivity(activity);
+        return Result.success();
+    }
+
+    @DeleteMapping("/{id}")
+    public Result deleteById(@PathVariable("id") Integer id) {
+        log.info("删除部门的id: {}", id);
+        activityService.deleteById(id);
         return Result.success();
     }
 }
