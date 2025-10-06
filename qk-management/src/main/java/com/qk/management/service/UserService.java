@@ -4,6 +4,8 @@ import com.qk.common.PageResult;
 import com.qk.dto.UserDTO;
 import com.qk.entity.User;
 
+import java.util.List;
+
 /**
  * @Author: hjh
  * @Date: 2025/10/06 20:29
@@ -13,4 +15,8 @@ public interface UserService {
     PageResult<User> page(UserDTO userDTO);
 
     void addUser(User user);
+
+    void deleteById(List<Integer> id);
+
+    User getById(Integer id);
 }

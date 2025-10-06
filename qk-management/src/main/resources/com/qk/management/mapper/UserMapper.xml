@@ -6,6 +6,13 @@
         insert into user(username, password, name, phone, email, gender, status, dept_id, role_id, image, remark, create_time, update_time)
         values(#{username}, #{password}, #{name}, #{phone}, #{email}, #{gender}, #{status}, #{deptId}, #{roleId}, #{image}, #{remark}, #{createTime}, #{updateTime})
     </insert>
+    <delete id="deleteById">
+        delete from user
+        where id in
+        <foreach item="id" collection="ids" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
     <select id="count" resultType="java.lang.Integer">
         select count(*) from user
         <where>
@@ -24,7 +31,7 @@
         </where>
     </select>
     <select id="select" resultType="com.qk.entity.User">
-        select u.name, u.username, u.password, u.phone, u.email, u.gender, u.status, u.image, u.remark, u.create_time,
+        select u.id, u.name, u.username, u.password, u.phone, u.email, u.gender, u.status, u.image, u.remark, u.create_time,
         u.update_time, d.name as dept_name, r.name as role_name
         from user u
         left join dept d on u.dept_id = d.id

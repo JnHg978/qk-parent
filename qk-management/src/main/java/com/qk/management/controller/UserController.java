@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @Author: hjh
  * @Date: 2025/10/06 20:29
@@ -33,5 +35,19 @@ public class UserController {
         log.info("添加用户: {}", user);
         userService.addUser(user);
         return Result.success();
+    }
+
+    @DeleteMapping("/{ids}")
+    public Result deleteById(@PathVariable("ids") List<Integer> ids) {
+        log.info("删除用户的id: {}", ids);
+        userService.deleteById(ids);
+        return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable("id") Integer id) {
+        log.info("查询用户的id: {}", id);
+        User user = userService.getById(id);
+        return Result.success(user);
     }
 }

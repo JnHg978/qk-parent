@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,5 +41,15 @@ public class UserServiceImpl implements UserService {
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
         userMapper.insert(user);
+    }
+
+    @Override
+    public void deleteById(List<Integer> ids) {
+        userMapper.deleteById(ids);
+    }
+
+    @Override
+    public User getById(Integer id) {
+        return userMapper.selectById(id);
     }
 }
