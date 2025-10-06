@@ -1,6 +1,14 @@
 package com.qk.management.service.impl;
 
+import com.qk.common.PageResult;
+import com.qk.dto.UserDTO;
+import com.qk.entity.User;
+import com.qk.management.mapper.UserMapper;
+import com.qk.management.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Author: hjh
@@ -8,5 +16,19 @@ import org.springframework.stereotype.Service;
  * @Description:
  */
 @Service
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
+    @Autowired
+    private UserMapper userMapper;
+
+    @Override
+    public PageResult<User> page(UserDTO userDTO) {
+        Integer total = userMapper.count(userDTO);
+        Integer offset = (userDTO.getPage() - 1) * userDTO.getPageSize();
+        userDTO.setPage(offset);
+        List<User> userList = userMapper.select(userDTO);
+        return PageResult.<User>builder()
+                .total(total)
+                .rows(userList)
+                .build();
+    }
 }

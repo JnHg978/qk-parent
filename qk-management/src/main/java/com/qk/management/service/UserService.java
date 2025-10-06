@@ -1,5 +1,8 @@
 package com.qk.management.service;
 
+import com.qk.common.PageResult;
+import com.qk.dto.UserDTO;
+import com.qk.entity.User;
 import org.springframework.stereotype.Service;
 
 /**
@@ -8,4 +11,5 @@ import org.springframework.stereotype.Service;
  * @Description:
  */
 public interface UserService {
+    PageResult<User> page(UserDTO userDTO);
 }
