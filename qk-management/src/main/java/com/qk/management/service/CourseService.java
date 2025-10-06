@@ -10,4 +10,6 @@ import com.qk.entity.Course;
  */
 public interface CourseService {
     PageResult<Course> page(String name, Integer subject, Integer target, Integer page, Integer pageSize);
+
+    void addCourse(Course course);
 }

@@ -7,6 +7,7 @@ import com.qk.management.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -29,5 +30,12 @@ public class CourseServiceImpl implements CourseService {
                 .total(total)
                 .rows(courseList)
                 .build();
+    }
+
+    @Override
+    public void addCourse(Course course) {
+        course.setCreateTime(LocalDateTime.now());
+        course.setUpdateTime(LocalDateTime.now());
+        courseMapper.insert(course);
     }
 }

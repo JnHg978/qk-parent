@@ -15,4 +15,6 @@ public interface CourseMapper {
     List<Course> select(String name, Integer subject, Integer target, Integer offset, Integer pageSize);
 
     Integer count(String name, Integer subject, Integer target);
+
+    void insert(Course course);
 }
