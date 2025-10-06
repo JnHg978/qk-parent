@@ -60,4 +60,11 @@ public class RoleController {
         Role role = roleService.selectById(id);
         return Result.success(role);
     }
+
+    @PutMapping
+    public Result updateById(@RequestBody Role role){
+        log.info("更新角色: {}", role);
+        roleService.updateById(role);
+        return Result.success();
+    }
 }

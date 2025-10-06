@@ -28,4 +28,6 @@ public interface RoleMapper {
 
     @Select("select id, name, label, remark, create_time, update_time from role where id = #{id}")
     Role selectById(Integer id);
+
+    void updateById(Role role);
 }

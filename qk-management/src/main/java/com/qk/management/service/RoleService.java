@@ -20,4 +20,6 @@ public interface RoleService {
     void deleteById(Integer id);
 
     Role selectById(Integer id);
+
+    void updateById(Role role);
 }

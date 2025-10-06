@@ -61,4 +61,10 @@ public class RoleServiceImpl implements RoleService {
     public Role selectById(Integer id) {
         return roleMapper.selectById(id);
     }
+
+    @Override
+    public void updateById(Role role) {
+        role.setUpdateTime(LocalDateTime.now());
+        roleMapper.updateById(role);
+    }
 }

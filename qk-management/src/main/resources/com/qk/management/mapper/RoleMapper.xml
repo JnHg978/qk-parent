@@ -6,6 +6,24 @@
         insert into role(name, label, create_time, update_time)
         values (#{name}, #{label}, #{createTime}, #{updateTime})
     </insert>
+    <update id="updateById">
+        update role
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="label != null and label != ''">
+                label = #{label},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
     <select id="count" resultType="java.lang.Integer">
         select count(*) from role
         <where>
