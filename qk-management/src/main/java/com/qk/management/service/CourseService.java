@@ -14,4 +14,6 @@ public interface CourseService {
     void addCourse(Course course);
 
     void deleteById(Integer id);
+
+    Course getById(Integer id);
 }

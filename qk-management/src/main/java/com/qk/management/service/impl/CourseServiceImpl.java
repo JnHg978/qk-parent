@@ -43,4 +43,9 @@ public class CourseServiceImpl implements CourseService {
     public void deleteById(Integer id) {
         courseMapper.deleteById(id);
     }
+
+    @Override
+    public Course getById(Integer id) {
+        return courseMapper.selectById(id);
+    }
 }

@@ -47,5 +47,9 @@ public class CourseController {
         return Result.success();
     }
 
-
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable("id") Integer id){
+        log.info("查询课程的id: {}", id);
+        return Result.success(courseService.getById(id));
+    }
 }
