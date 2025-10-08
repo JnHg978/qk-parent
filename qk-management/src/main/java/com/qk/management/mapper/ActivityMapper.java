@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Mapper
 public interface ActivityMapper {
-    Integer count(Integer channel, Integer type, Integer status);
+    Long count(Integer channel, Integer type, Integer status);
 
     List<Activity> select(Integer channel, Integer type, Integer status, Integer offset, Integer pageSize);
 

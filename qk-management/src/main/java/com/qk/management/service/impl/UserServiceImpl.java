@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PageResult<User> page(UserDTO userDTO) {
-        Integer total = userMapper.count(userDTO);
+        Long total = userMapper.count(userDTO);
         Integer offset = (userDTO.getPage() - 1) * userDTO.getPageSize();
         userDTO.setPage(offset);
         List<User> userList = userMapper.select(userDTO);
@@ -73,8 +73,4 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectByDept(deptId);
     }
 
-    @Override
-    public Integer countByRoleId(Integer id) {
-        return userMapper.countByRoleId(id);
-    }
 }

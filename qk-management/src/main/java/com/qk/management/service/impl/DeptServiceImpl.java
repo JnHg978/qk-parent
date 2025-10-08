@@ -3,6 +3,7 @@ package com.qk.management.service.impl;
 import com.qk.common.PageResult;
 import com.qk.entity.Dept;
 import com.qk.management.mapper.DeptMapper;
+import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ import java.util.List;
 public class DeptServiceImpl implements DeptService {
     @Autowired
     private DeptMapper deptMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public List<Dept> getAll() {
@@ -38,12 +42,17 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public void deleteById(Integer id) {
-        deptMapper.deleteById(id);
+        if (userMapper.countByDeptId(id) > 0) {
+            throw new RuntimeException("该部门下有用户，请先删除用户");
+        }else {
+            deptMapper.deleteById(id);
+        }
+
     }
 
     @Override
     public PageResult<Dept> page(String name, Integer status, Integer page, Integer pageSize) {
-        Integer total = deptMapper.count(name,status);
+        Long total = deptMapper.count(name,status);
 
         Integer offset = (page - 1) * pageSize;
 

@@ -28,7 +28,7 @@ public interface DeptMapper {
                       @Param("offset") Integer offset,
                       @Param("pageSize") Integer pageSize);
 
-    Integer count(String name, Integer status);
+    Long count(String name, Integer status);
 
     @Insert("insert into dept(name,status,create_time,update_time) values(#{name},#{status},#{createTime},#{updateTime})")
     void insert(Dept dept);

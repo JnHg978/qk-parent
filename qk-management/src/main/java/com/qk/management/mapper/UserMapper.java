@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Mapper
 public interface UserMapper {
-    Integer count(UserDTO userDTO);
+    Long count(UserDTO userDTO);
 
     List<User> select(UserDTO userDTO);
 
@@ -36,4 +36,7 @@ public interface UserMapper {
 
     @Select("select count(*) from user where role_id = #{id}")
     Integer countByRoleId(Integer id);
+
+    @Select("select count(*) from user where dept_id = #{id}")
+    Integer countByDeptId(Integer id);
 }

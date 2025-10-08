@@ -54,6 +54,12 @@
             <artifactId>mybatis-spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
+
         <!--阿里云OSS依赖-->
         <dependency>
             <groupId>com.aliyun.oss</groupId>

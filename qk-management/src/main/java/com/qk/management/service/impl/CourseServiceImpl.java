@@ -23,11 +23,11 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public PageResult<Course> page(String name, Integer subject, Integer target, Integer page, Integer pageSize) {
-        Integer total = courseMapper.count(name, subject, target);
+        Long total = courseMapper.count(name, subject, target);
         Integer offset = (page - 1) * pageSize;
         List<Course> courseList = courseMapper.select(name, subject, target, offset, pageSize);
         return PageResult.<Course>builder()
-                .total(total)
+                .total(Long.valueOf(total))
                 .rows(courseList)
                 .build();
     }

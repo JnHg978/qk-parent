@@ -3,6 +3,7 @@ package com.qk.management.service.impl;
 import com.qk.common.PageResult;
 import com.qk.entity.Role;
 import com.qk.management.mapper.RoleMapper;
+import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,15 +23,15 @@ public class RoleServiceImpl implements RoleService {
     private RoleMapper roleMapper;
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserMapper userMapper;
 
     @Override
     public PageResult<Role> page(String name, String label, Integer page, Integer pageSize) {
-        Integer total = roleMapper.count(name, label);
+        Long total = roleMapper.count(name, label);
         Integer offset = (page - 1) * pageSize;
         List<Role> roleList = roleMapper.select(name, label, offset, pageSize);
         return PageResult.<Role>builder()
-                .total( total)
+                .total(total)
                 .rows(roleList)
                 .build();
     }
@@ -50,7 +51,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void deleteById(Integer id) {
         // 首先确定该角色下没有用户
-        if (userService.countByRoleId(id) > 0) {
+        if (userMapper.countByRoleId(id) > 0) {
             throw new RuntimeException("该角色下有用户，请先删除用户");
         }else {
             roleMapper.deleteById(id);

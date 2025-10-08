@@ -24,11 +24,11 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public PageResult<Activity> page(Integer channel, Integer type, Integer status, Integer page, Integer pageSize) {
-        Integer count = activityMapper.count(channel, type, status);
+        Long total = activityMapper.count(channel, type, status);
         Integer offset = (page - 1) * pageSize;
         List<Activity> result = activityMapper.select(channel, type, status, offset, pageSize);
         return PageResult.<Activity>builder()
-                .total( count)
+                .total(Long.valueOf(total))
                 .rows(result)
                 .build();
     }

@@ -27,6 +27,4 @@ public interface UserService {
     List<User> getByRole(String roleLabel);
 
     List<User> getByDept(Integer deptId);
-
-    Integer countByRoleId(Integer id);
 }

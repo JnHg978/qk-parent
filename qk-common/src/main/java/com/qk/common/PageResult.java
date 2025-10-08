@@ -13,6 +13,6 @@ import java.util.List;
 @Data
 @Builder
 public class PageResult<T> {
-    private Integer total;
+    private Long total;
     private List<T> rows;
 }
