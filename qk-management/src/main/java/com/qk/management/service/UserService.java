@@ -1,8 +1,11 @@
 package com.qk.management.service;
 
 import com.qk.common.PageResult;
+import com.qk.domain.UserDO;
+import com.qk.dto.LoginDTO;
 import com.qk.dto.UserDTO;
 import com.qk.entity.User;
+import com.qk.vo.LoginResultVo;
 
 import java.util.List;
 
@@ -12,7 +15,7 @@ import java.util.List;
  * @Description:
  */
 public interface UserService {
-    PageResult<User> page(UserDTO userDTO);
+    PageResult<UserDO> page(UserDTO userDTO);
 
     void addUser(User user);
 
@@ -27,4 +30,6 @@ public interface UserService {
     List<User> getByRole(String roleLabel);
 
     List<User> getByDept(Integer deptId);
+
+    LoginResultVo login(LoginDTO loginDTO);
 }

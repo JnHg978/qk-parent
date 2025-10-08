@@ -1,5 +1,6 @@
 package com.qk.management.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.qk.common.PageResult;
 import com.qk.entity.Course;
 import com.qk.management.mapper.CourseMapper;
@@ -27,13 +28,17 @@ public class CourseServiceImpl implements CourseService {
         Integer offset = (page - 1) * pageSize;
         List<Course> courseList = courseMapper.select(name, subject, target, offset, pageSize);
         return PageResult.<Course>builder()
-                .total(Long.valueOf(total))
+                .total(total)
                 .rows(courseList)
                 .build();
     }
 
     @Override
     public void addCourse(Course course) {
+        boolean hasNull = BeanUtil.hasNullField(course, "id", "description", "createTime", "updateTime");
+        if (hasNull) {
+            throw new RuntimeException("参数错误");
+        }
         course.setCreateTime(LocalDateTime.now());
         course.setUpdateTime(LocalDateTime.now());
         courseMapper.insert(course);
@@ -51,6 +56,10 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void updateById(Course course) {
+        boolean hasNull = BeanUtil.hasNullField(course, "description", "createTime", "updateTime");
+        if (hasNull) {
+            throw new RuntimeException("参数错误");
+        }
         course.setUpdateTime(LocalDateTime.now());
         courseMapper.updateById(course);
     }

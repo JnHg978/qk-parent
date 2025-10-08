@@ -1,7 +1,10 @@
 package com.qk.management.mapper;
 
+import com.qk.domain.UserDO;
+import com.qk.dto.LoginDTO;
 import com.qk.dto.UserDTO;
 import com.qk.entity.User;
+import com.qk.vo.LoginResultVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -16,7 +19,7 @@ import java.util.List;
 public interface UserMapper {
     Long count(UserDTO userDTO);
 
-    List<User> select(UserDTO userDTO);
+    List<UserDO> select(UserDTO userDTO);
 
     void insert(User user);
 
@@ -39,4 +42,6 @@ public interface UserMapper {
 
     @Select("select count(*) from user where dept_id = #{id}")
     Integer countByDeptId(Integer id);
+
+    LoginResultVo selectByUsernameAndPassword(LoginDTO loginDTO);
 }

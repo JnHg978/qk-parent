@@ -1,5 +1,6 @@
 package com.qk.management.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.qk.common.PageResult;
 import com.qk.entity.Dept;
 import com.qk.management.mapper.DeptMapper;
@@ -31,6 +32,10 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public void updateById(Dept dept) {
+        boolean hasNull = BeanUtil.hasNullField(dept, "createTime", "updateTime");
+        if (hasNull) {
+            throw new RuntimeException("参数异常");
+        }
         dept.setUpdateTime(LocalDateTime.now());
         deptMapper.updateById(dept);
     }
@@ -66,6 +71,7 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public void addDept(Dept dept) {
+        boolean hasNull = BeanUtil.hasNullField(dept, "id", "createTime", "updateTime");
         dept.setCreateTime(LocalDateTime.now());
         dept.setUpdateTime(LocalDateTime.now());
         deptMapper.insert(dept);

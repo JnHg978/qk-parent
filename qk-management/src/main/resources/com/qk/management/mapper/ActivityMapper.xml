@@ -3,8 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qk.management.mapper.ActivityMapper">
     <insert id="insert">
-        insert into activity(channel, name, start_time, end_time, description, type,discount, voucher, create_time, update_time)
-        values (#{channel}, #{name}, #{startTime}, #{endTime}, #{description}, #{type}, #{discount}, #{voucher}, #{createTime}, #{updateTime})
+        insert into activity(channel, name, start_time, end_time, description, type, create_time, update_time, discount, voucher)
+        values (#{channel}, #{name}, #{startTime}, #{endTime}, #{description}, #{type}, #{createTime}, #{updateTime}, #{discount}, #{voucher})
     </insert>
     <update id="updateById">
         update activity
@@ -26,6 +26,9 @@
             </if>
             <if  test="type != null">
                 type = #{type},
+            </if>
+            <if test="voucher != null">
+                voucher = #{voucher},
             </if>
             <if test="discount != null">
                 discount = #{discount},

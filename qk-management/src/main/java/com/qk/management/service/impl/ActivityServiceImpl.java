@@ -1,5 +1,6 @@
 package com.qk.management.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.qk.common.PageResult;
 import com.qk.entity.Activity;
 import com.qk.management.mapper.ActivityMapper;
@@ -28,13 +29,17 @@ public class ActivityServiceImpl implements ActivityService {
         Integer offset = (page - 1) * pageSize;
         List<Activity> result = activityMapper.select(channel, type, status, offset, pageSize);
         return PageResult.<Activity>builder()
-                .total(Long.valueOf(total))
+                .total(total)
                 .rows(result)
                 .build();
     }
 
     @Override
     public void addActivity(Activity activity) {
+        boolean hasNull = BeanUtil.hasNullField(activity, "id", "discount", "voucher", "createTime", "updateTime");
+        if (hasNull) {
+            throw new RuntimeException("参数错误");
+        }
         activity.setCreateTime(LocalDateTime.now());
         activity.setUpdateTime(LocalDateTime.now());
         activityMapper.insert(activity);
@@ -52,6 +57,10 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public void updateById(Activity activity) {
+        boolean hasNull = BeanUtil.hasNullField(activity, "discount", "voucher", "createTime", "updateTime");
+        if (hasNull) {
+            throw new RuntimeException("参数错误");
+        }
         activity.setUpdateTime(LocalDateTime.now());
         activityMapper.updateById(activity);
     }

@@ -2,6 +2,7 @@ package com.qk.management.controller;
 
 import com.qk.common.PageResult;
 import com.qk.common.Result;
+import com.qk.domain.UserDO;
 import com.qk.dto.UserDTO;
 import com.qk.entity.User;
 import com.qk.management.service.UserService;
@@ -26,7 +27,7 @@ public class UserController {
     @GetMapping
     public Result page(UserDTO userDTO) {
         log.info("分页查询用户, 参数: {}", userDTO);
-        PageResult<User> result = userService.page(userDTO);
+        PageResult<UserDO> result = userService.page(userDTO);
         return Result.success(result);
     }
 

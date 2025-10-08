@@ -1,10 +1,15 @@
 package com.qk.management.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.DesensitizedUtil;
 import com.qk.common.PageResult;
+import com.qk.domain.UserDO;
+import com.qk.dto.LoginDTO;
 import com.qk.dto.UserDTO;
 import com.qk.entity.User;
 import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.UserService;
+import com.qk.vo.LoginResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -23,12 +28,19 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public PageResult<User> page(UserDTO userDTO) {
+    public PageResult<UserDO> page(UserDTO userDTO) {
+        boolean hasNull = BeanUtil.hasNullField(userDTO, "name", "status", "phone", "deptId");
+        if (hasNull) {
+            throw new RuntimeException("参数异常");
+        }
         Long total = userMapper.count(userDTO);
         Integer offset = (userDTO.getPage() - 1) * userDTO.getPageSize();
         userDTO.setPage(offset);
-        List<User> userList = userMapper.select(userDTO);
-        return PageResult.<User>builder()
+        List<UserDO> userList = userMapper.select(userDTO);
+        userList.forEach(userDO -> {
+            userDO.setPhone(DesensitizedUtil.mobilePhone(userDO.getPhone()));
+        });
+        return PageResult.<UserDO>builder()
                 .total(total)
                 .rows(userList)
                 .build();
@@ -36,7 +48,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(User user) {
-        user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword()+"123").getBytes()));
+        boolean hasNull = BeanUtil.hasNullField(user, "id", "password", "deptId", "roleId", "image", "remark", "createTime", "updateTime");
+        if (hasNull) {
+            throw new RuntimeException("参数异常");
+        }
+        user.setPassword(DigestUtils.md5DigestAsHex((user.getUsername()+"123").getBytes()));
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
         userMapper.insert(user);
@@ -71,6 +87,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getByDept(Integer deptId) {
         return userMapper.selectByDept(deptId);
+    }
+
+    @Override
+    public LoginResultVo login(LoginDTO loginDTO) {
+        boolean hasNull = BeanUtil.hasNullField(loginDTO);
+        if (hasNull) {
+            throw new RuntimeException("参数异常");
+        }
+        loginDTO.setPassword(DigestUtils.md5DigestAsHex((loginDTO.getPassword()).getBytes()));
+        LoginResultVo loginResultVo = userMapper.selectByUsernameAndPassword(loginDTO);
+        if (loginResultVo != null) {
+            loginResultVo.setToken("this is a token");
+        }
+        return loginResultVo;
     }
 
 }

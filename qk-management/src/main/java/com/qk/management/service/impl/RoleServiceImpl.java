@@ -1,5 +1,6 @@
 package com.qk.management.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.qk.common.PageResult;
 import com.qk.entity.Role;
 import com.qk.management.mapper.RoleMapper;
@@ -38,6 +39,10 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void addRole(Role role) {
+        boolean hasNull = BeanUtil.hasNullField(role, "id", "remark", "createTime", "updateTime");
+        if (hasNull) {
+            throw new RuntimeException("参数异常");
+        }
         role.setCreateTime(LocalDateTime.now());
         role.setUpdateTime(LocalDateTime.now());
         roleMapper.insert(role);
@@ -65,6 +70,10 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void updateById(Role role) {
+        boolean hasNull = BeanUtil.hasNullField(role, "remark", "createTime", "updateTime");
+        if (hasNull) {
+            throw new RuntimeException("参数异常");
+        }
         role.setUpdateTime(LocalDateTime.now());
         roleMapper.updateById(role);
     }

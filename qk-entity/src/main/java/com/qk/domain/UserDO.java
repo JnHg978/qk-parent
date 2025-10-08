@@ -1,4 +1,4 @@
-package com.qk.entity;
+package com.qk.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -6,10 +6,12 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * 用户实体类
+ * @Author: hjh
+ * @Date: 2025/10/08 15:50
+ * @Description:
  */
 @Data
-public class User {
+public class UserDO {
     /**
      * id, 主键
      */
@@ -81,4 +83,8 @@ public class User {
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
+
+    //扩展属性
+    private String deptName; //部门名称
+    private String roleName; //角色名称
 }
