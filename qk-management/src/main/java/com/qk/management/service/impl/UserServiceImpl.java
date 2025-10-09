@@ -1,10 +1,12 @@
 package com.qk.management.service.impl;
 
 import com.qk.common.PageResult;
+import com.qk.dto.LoginDTO;
 import com.qk.dto.UserDTO;
 import com.qk.entity.User;
 import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.UserService;
+import com.qk.vo.LoginResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -71,6 +73,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getByDept(Integer deptId) {
         return userMapper.selectByDept(deptId);
+    }
+
+    @Override
+    public LoginResultVo login(LoginDTO loginDTO) {
+        loginDTO.setPassword(DigestUtils.md5DigestAsHex((loginDTO.getPassword()).getBytes()));
+        return userMapper.selectByUsernameAndPassword(loginDTO);
     }
 
 }
