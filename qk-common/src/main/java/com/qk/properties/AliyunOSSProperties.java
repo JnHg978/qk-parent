@@ -1,4 +1,4 @@
-package com.qk.utils;
+package com.qk.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

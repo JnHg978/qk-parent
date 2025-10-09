@@ -34,7 +34,7 @@ public class DeptServiceImpl implements DeptService {
     public void updateById(Dept dept) {
         boolean hasNull = BeanUtil.hasNullField(dept, "createTime", "updateTime");
         if (hasNull) {
-            throw new RuntimeException("参数异常");
+            throw new RuntimeException("参数错误");
         }
         dept.setUpdateTime(LocalDateTime.now());
         deptMapper.updateById(dept);

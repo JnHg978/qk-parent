@@ -1,7 +1,7 @@
 package com.qk.management.config;
 
 import com.qk.utils.AliyunOSSOperator;
-import com.qk.utils.AliyunOSSProperties;
+import com.qk.properties.AliyunOSSProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

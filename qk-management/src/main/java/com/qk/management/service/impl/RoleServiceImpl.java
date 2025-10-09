@@ -41,7 +41,7 @@ public class RoleServiceImpl implements RoleService {
     public void addRole(Role role) {
         boolean hasNull = BeanUtil.hasNullField(role, "id", "remark", "createTime", "updateTime");
         if (hasNull) {
-            throw new RuntimeException("参数异常");
+            throw new RuntimeException("参数错误");
         }
         role.setCreateTime(LocalDateTime.now());
         role.setUpdateTime(LocalDateTime.now());
@@ -72,7 +72,7 @@ public class RoleServiceImpl implements RoleService {
     public void updateById(Role role) {
         boolean hasNull = BeanUtil.hasNullField(role, "remark", "createTime", "updateTime");
         if (hasNull) {
-            throw new RuntimeException("参数异常");
+            throw new RuntimeException("参数错误");
         }
         role.setUpdateTime(LocalDateTime.now());
         roleMapper.updateById(role);

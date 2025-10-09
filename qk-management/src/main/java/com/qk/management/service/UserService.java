@@ -1,6 +1,7 @@
 package com.qk.management.service;
 
 import com.qk.common.PageResult;
+import com.qk.domain.UserDO;
 import com.qk.dto.LoginDTO;
 import com.qk.dto.UserDTO;
 import com.qk.entity.User;
@@ -14,7 +15,7 @@ import java.util.List;
  * @Description:
  */
 public interface UserService {
-    PageResult<User> page(UserDTO userDTO);
+    PageResult<UserDO> page(UserDTO userDTO);
 
     void addUser(User user);
 

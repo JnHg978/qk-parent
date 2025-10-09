@@ -31,7 +31,7 @@ public class LoginController {
         if (result != null){
             return Result.success(result);
         }else {
-            return Result.error("用户名或密码错误");
+            return Result.error("账号/密码错误！");
         }
     }
 

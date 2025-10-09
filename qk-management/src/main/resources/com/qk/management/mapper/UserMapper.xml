@@ -72,7 +72,7 @@
             </if>
         </where>
     </select>
-    <select id="select" resultType="com.qk.entity.User">
+    <select id="select" resultType="com.qk.domain.UserDO">
         select u.id, u.name, u.username, u.password, u.phone, u.email, u.gender, u.status, u.image, u.remark, u.create_time,
         u.update_time, d.name as dept_name, r.name as role_name
         from user u

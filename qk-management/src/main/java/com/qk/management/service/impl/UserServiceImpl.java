@@ -1,11 +1,14 @@
 package com.qk.management.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.qk.common.PageResult;
+import com.qk.domain.UserDO;
 import com.qk.dto.LoginDTO;
 import com.qk.dto.UserDTO;
 import com.qk.entity.User;
 import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.UserService;
+import com.qk.utils.JwtUtils;
 import com.qk.vo.LoginResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,7 @@ import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: hjh
@@ -25,12 +29,12 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public PageResult<User> page(UserDTO userDTO) {
+    public PageResult<UserDO> page(UserDTO userDTO) {
         Long total = userMapper.count(userDTO);
         Integer offset = (userDTO.getPage() - 1) * userDTO.getPageSize();
         userDTO.setPage(offset);
-        List<User> userList = userMapper.select(userDTO);
-        return PageResult.<User>builder()
+        List<UserDO> userList = userMapper.select(userDTO);
+        return PageResult.<UserDO>builder()
                 .total(total)
                 .rows(userList)
                 .build();
@@ -77,8 +81,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public LoginResultVo login(LoginDTO loginDTO) {
+        boolean hasNull = BeanUtil.hasNullField(loginDTO);
+        if (hasNull) {
+            throw new RuntimeException("参数错误");
+        }
         loginDTO.setPassword(DigestUtils.md5DigestAsHex((loginDTO.getPassword()).getBytes()));
-        return userMapper.selectByUsernameAndPassword(loginDTO);
+        LoginResultVo loginResultVo = userMapper.selectByUsernameAndPassword(loginDTO);
+        if (loginResultVo == null){
+            throw new RuntimeException("账号/密码错误！");
+        } else {
+            Map<String, Object> claims = BeanUtil.beanToMap(loginResultVo,  false, true);
+            loginResultVo.setToken(JwtUtils.generateToken(claims));
+        }
+        return loginResultVo;
     }
 
 }
