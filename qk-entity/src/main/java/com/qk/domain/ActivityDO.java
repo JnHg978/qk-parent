@@ -1,4 +1,4 @@
-package com.qk.entity;
+package com.qk.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -6,10 +6,12 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * 活动实体类
+ * @Author: hjh
+ * @Date: 2025/10/09 16:56
+ * @Description:
  */
 @Data
-public class Activity {
+public class ActivityDO {
     /**
      * 活动ID，主键
      */
@@ -28,13 +30,13 @@ public class Activity {
     /**
      * 开始时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
 
     /**
      * 结束时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
     /**
