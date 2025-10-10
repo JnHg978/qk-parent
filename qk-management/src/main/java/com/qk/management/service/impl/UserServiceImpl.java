@@ -6,6 +6,7 @@ import com.qk.domain.UserDO;
 import com.qk.dto.LoginDTO;
 import com.qk.dto.UserDTO;
 import com.qk.entity.User;
+import com.qk.management.mapper.RoleMapper;
 import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.UserService;
 import com.qk.util.JwtUtils;
@@ -18,6 +19,7 @@ import org.springframework.util.DigestUtils;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @Author: hjh
@@ -28,6 +30,9 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Override
     public PageResult<UserVO> page(UserDTO userDTO) {
@@ -87,15 +92,26 @@ public class UserServiceImpl implements UserService {
         if (hasNull) {
             throw new RuntimeException("参数错误");
         }
-        loginDTO.setPassword(DigestUtils.md5DigestAsHex((loginDTO.getPassword()).getBytes()));
-        UserDO userDO = userMapper.selectByUsernameAndPassword(loginDTO);
-        if (userDO == null){
+        User user = userMapper.selectByUsername(loginDTO);
+        if (user == null){
             throw new RuntimeException("账号/密码错误！");
         } else {
-            LoginResultVo loginResultVo = new LoginResultVo();
-            Map<String, Object> claims = BeanUtil.beanToMap(loginResultVo,  false, true);
-            loginResultVo.setToken(JwtUtils.generateToken(claims));
-            return loginResultVo;
+            boolean isEqual = Objects.equals(user.getPassword(), DigestUtils.md5DigestAsHex((loginDTO.getPassword()).getBytes()));
+            if (!isEqual){
+                throw new RuntimeException("账号/密码错误！");
+            }else {
+                LoginResultVo loginResultVo = LoginResultVo.builder()
+                        .id(user.getId())
+                        .username(user.getUsername())
+                        .name(user.getName())
+                        .image(user.getImage())
+                        .roleLabel(roleMapper.selectById(user.getRoleId()).getLabel())
+                        .build();
+                Map<String, Object> claims = BeanUtil.beanToMap(loginResultVo,  false, true);
+                loginResultVo.setToken(JwtUtils.generateToken(claims));
+                return loginResultVo;
+            }
+
         }
     }
 

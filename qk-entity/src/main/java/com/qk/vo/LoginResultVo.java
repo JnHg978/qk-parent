@@ -1,12 +1,18 @@
 package com.qk.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 登录结果实体类
  * 用于封装登录后返回给前端的结果
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginResultVo {
     /**
      * 用户ID

@@ -4,7 +4,6 @@ import com.qk.domain.UserDO;
 import com.qk.dto.LoginDTO;
 import com.qk.dto.UserDTO;
 import com.qk.entity.User;
-import com.qk.vo.LoginResultVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -43,5 +42,5 @@ public interface UserMapper {
     @Select("select count(*) from user where dept_id = #{id}")
     Integer countByDeptId(Integer id);
 
-    UserDO selectByUsernameAndPassword(LoginDTO loginDTO);
+    User selectByUsername(LoginDTO loginDTO);
 }
