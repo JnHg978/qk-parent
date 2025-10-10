@@ -111,7 +111,7 @@
         order by update_time desc
     </select>
     <select id="selectByUsername" resultType="com.qk.entity.User">
-        select u.id, u.name, u.username, u.image, u.password, u.role_id
+        select u.id, u.name, u.username, u.image, u.password, u.role_id, u.status
         from user u
         where u.username = #{username}
     </select>

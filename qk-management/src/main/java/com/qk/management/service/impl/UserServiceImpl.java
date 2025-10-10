@@ -1,6 +1,7 @@
 package com.qk.management.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.qk.common.PageResult;
 import com.qk.domain.UserDO;
 import com.qk.dto.LoginDTO;
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(User user) {
-        user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword()+"123").getBytes()));
+        user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword() + "123").getBytes()));
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
         userMapper.insert(user);
@@ -95,28 +96,29 @@ public class UserServiceImpl implements UserService {
             CommonBizException.throwException(CommonEnum.PARAM_ERROR);
         }
         User user = userMapper.selectByUsername(loginDTO);
-        LoginResultVo loginResultVo = null;
-        if (user == null){
+        if (user == null) {
+            CommonBizException.throwException(CommonEnum.USERNAME_PASSWORD_ERROR);
+        }
+        if(Objects.equals(user.getStatus(), 0)){
+            CommonBizException.throwException(CommonEnum.USER_DEACTIVATED);
+        }
+        boolean isEqual = Objects.equals(user.getPassword(), DigestUtils.md5DigestAsHex((loginDTO.getPassword()).getBytes()));
+        if (!isEqual) {
             CommonBizException.throwException(CommonEnum.USERNAME_PASSWORD_ERROR);
         } else {
-            boolean isEqual = Objects.equals(user.getPassword(), DigestUtils.md5DigestAsHex((loginDTO.getPassword()).getBytes()));
-            if (!isEqual){
-                CommonBizException.throwException(CommonEnum.USERNAME_PASSWORD_ERROR);
-            }else {
-                loginResultVo = LoginResultVo.builder()
-                        .id(user.getId())
-                        .username(user.getUsername())
-                        .name(user.getName())
-                        .image(user.getImage())
-                        .roleLabel(roleMapper.selectById(user.getRoleId()).getLabel())
-                        .build();
-                Map<String, Object> claims = BeanUtil.beanToMap(loginResultVo,  false, true);
-                loginResultVo.setToken(JwtUtils.generateToken(claims));
-
-            }
-
+            LoginResultVo loginResultVo = LoginResultVo.builder()
+                    .id(user.getId())
+                    .username(user.getUsername())
+                    .name(user.getName())
+                    .image(user.getImage())
+                    .roleLabel(roleMapper.selectById(user.getRoleId()).getLabel())
+                    .build();
+            Map<String, Object> claims = BeanUtil.beanToMap(loginResultVo, false, true);
+            loginResultVo.setToken(JwtUtils.generateToken(claims));
+            return loginResultVo;
         }
-        return loginResultVo;
+
+        return null;
     }
 
 }

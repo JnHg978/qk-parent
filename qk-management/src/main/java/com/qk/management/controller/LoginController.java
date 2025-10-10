@@ -28,11 +28,7 @@ public class LoginController {
     public Result login(@RequestBody LoginDTO loginDTO) {
         log.info("登录开始...");
         LoginResultVo result = userService.login(loginDTO);
-        if (result != null){
-            return Result.success(result);
-        }else {
-            return Result.error("账号/密码错误！");
-        }
+        return Result.success(result);
     }
 
 }
