@@ -1,7 +1,7 @@
 package com.qk.management.controller;
 
 import com.qk.common.Result;
-import com.qk.utils.AliyunOSSOperator;
+import com.qk.util.AliYunOSSOperators;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,21 +14,8 @@ import java.util.UUID;
 @RestController
 public class UploadController {
 
-    /**
-     * 文件上传
-     */
-    /*@PostMapping("/upload")
-    public Result upload(String username, Integer age, MultipartFile file) throws Exception {
-        log.info("上传文件开始...{}, {}, {}", username, age, file);
-        //生成一个新的不重复的文件名
-        String newFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-        // 保存文件
-        file.transferTo(new File("D:/images/" + newFileName));
-        return Result.success();
-    }*/
-
     @Autowired
-    private AliyunOSSOperator aliyunOSSOperator;
+    private AliYunOSSOperators aliYunOSSOperators;
 
     /**
      * 文件上传
@@ -40,8 +27,8 @@ public class UploadController {
         String originalFilename = image.getOriginalFilename();
         String suffixName = originalFilename.substring(originalFilename.lastIndexOf("."));
         //生成新的文件名
-        String objectName = UUID.randomUUID().toString() + suffixName;
-        String url = aliyunOSSOperator.upload(image.getBytes(), objectName);
+        String objectName = UUID.randomUUID() + suffixName;
+        String url = aliYunOSSOperators.upload(image.getBytes(), objectName);
         return Result.success(url);
     }
 

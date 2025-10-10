@@ -1,6 +1,5 @@
 package com.qk.management.mapper;
 
-import com.qk.vo.ActivityVO;
 import com.qk.entity.Activity;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;

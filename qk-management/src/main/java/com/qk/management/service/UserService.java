@@ -1,7 +1,6 @@
 package com.qk.management.service;
 
 import com.qk.common.PageResult;
-import com.qk.domain.UserDO;
 import com.qk.dto.LoginDTO;
 import com.qk.dto.UserDTO;
 import com.qk.entity.User;

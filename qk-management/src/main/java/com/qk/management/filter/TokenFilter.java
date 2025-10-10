@@ -1,6 +1,6 @@
 package com.qk.management.filter;
 
-import com.qk.utils.JwtUtils;
+import com.qk.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;

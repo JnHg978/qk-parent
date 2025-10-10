@@ -72,6 +72,9 @@ public class DeptServiceImpl implements DeptService {
     @Override
     public void addDept(Dept dept) {
         boolean hasNull = BeanUtil.hasNullField(dept, "id", "createTime", "updateTime");
+        if (hasNull) {
+            throw new RuntimeException("参数错误");
+        }
         dept.setCreateTime(LocalDateTime.now());
         dept.setUpdateTime(LocalDateTime.now());
         deptMapper.insert(dept);

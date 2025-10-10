@@ -8,7 +8,7 @@ import com.qk.dto.UserDTO;
 import com.qk.entity.User;
 import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.UserService;
-import com.qk.utils.JwtUtils;
+import com.qk.util.JwtUtils;
 import com.qk.vo.LoginResultVo;
 import com.qk.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,13 +1,12 @@
 package com.qk.management.interceptor;
 
-import com.qk.utils.JwtUtils;
+import com.qk.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @Author: hjh

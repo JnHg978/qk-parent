@@ -1,4 +1,4 @@
-package com.qk.utils;
+package com.qk.util;
 
 import com.aliyun.oss.ClientBuilderConfiguration;
 import com.aliyun.oss.OSS;
@@ -6,10 +6,12 @@ import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider;
 import com.aliyun.oss.common.comm.SignVersion;
 import com.aliyun.oss.model.PutObjectRequest;
+import com.qk.property.AliyunOSSProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
@@ -19,21 +21,10 @@ import java.io.ByteArrayInputStream;
 @AllArgsConstructor
 @NoArgsConstructor
 @Component
-public class AliyunOSSOperator {
+public class AliYunOSSOperators {
 
-    /*
-    @Value("${aliyun.oss.endpoint}")
-    private String endpoint;
-
-    @Value("${aliyun.oss.bucketName}")
-    private String bucketName;
-
-    @Value("${aliyun.oss.region}")
-    private String region;
-    */
-    String endpoint;
-    String bucketName;
-    String region;
+    @Autowired
+    private AliyunOSSProperties aliyunOSSProperties;
 
     public String upload(byte[] content, String objectName) throws Exception {
 
@@ -43,19 +34,19 @@ public class AliyunOSSOperator {
         OSS ossClient = null;
         try {
             ossClient = OSSClientBuilder.create()
-                    .endpoint(endpoint)
+                    .endpoint(aliyunOSSProperties.getEndpoint())
                     .credentialsProvider(new EnvironmentVariableCredentialsProvider())
                     .clientConfiguration(clientBuilderConfiguration)
-                    .region(region)
+                    .region(aliyunOSSProperties.getRegion())
                     .build();
             // 创建PutObjectRequest对象
-            PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, objectName, new ByteArrayInputStream(content));
+            PutObjectRequest putObjectRequest = new PutObjectRequest(aliyunOSSProperties.getBucketName(), objectName, new ByteArrayInputStream(content));
             // 上传文件
             ossClient.putObject(putObjectRequest);
             // 返回文件访问URL
-            return "https://" + bucketName + "." + endpoint.substring(8) + "/" + objectName;
+            return "https://" + aliyunOSSProperties.getBucketName() + "." + aliyunOSSProperties.getEndpoint().substring(8) + "/" + objectName;
         } catch (Exception e) {
-            log.error("Caught an OSSException: " + e.getMessage());
+            log.error("Caught an OSSException: {}", e.getMessage());
             throw e;
         } finally {
             if (ossClient != null) {

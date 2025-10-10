@@ -1,7 +1,8 @@
 package com.qk.management.config;
 
-import com.qk.utils.AliyunOSSOperator;
-import com.qk.properties.AliyunOSSProperties;
+
+import com.qk.property.AliyunOSSProperties;
+import com.qk.util.AliYunOSSOperators;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +19,7 @@ public class AliyunOSSConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public AliyunOSSOperator aliyunOSSOperator(AliyunOSSProperties aliyunOSSProperties) {
-        return new AliyunOSSOperator(aliyunOSSProperties.getEndpoint(), aliyunOSSProperties.getBucketName(), aliyunOSSProperties.getRegion());
+    public AliYunOSSOperators aliyunOSSOperator() {
+        return new AliYunOSSOperators();
     }
 }
