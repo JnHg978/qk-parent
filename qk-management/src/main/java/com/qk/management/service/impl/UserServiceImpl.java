@@ -6,6 +6,8 @@ import com.qk.domain.UserDO;
 import com.qk.dto.LoginDTO;
 import com.qk.dto.UserDTO;
 import com.qk.entity.User;
+import com.qk.enums.CommonEnum;
+import com.qk.exception.CommonBizException;
 import com.qk.management.mapper.RoleMapper;
 import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.UserService;
@@ -90,17 +92,18 @@ public class UserServiceImpl implements UserService {
     public LoginResultVo login(LoginDTO loginDTO) {
         boolean hasNull = BeanUtil.hasNullField(loginDTO);
         if (hasNull) {
-            throw new RuntimeException("参数错误");
+            CommonBizException.throwException(CommonEnum.PARAM_ERROR);
         }
         User user = userMapper.selectByUsername(loginDTO);
+        LoginResultVo loginResultVo = null;
         if (user == null){
-            throw new RuntimeException("账号/密码错误！");
+            CommonBizException.throwException(CommonEnum.USERNAME_PASSWORD_ERROR);
         } else {
             boolean isEqual = Objects.equals(user.getPassword(), DigestUtils.md5DigestAsHex((loginDTO.getPassword()).getBytes()));
             if (!isEqual){
-                throw new RuntimeException("账号/密码错误！");
+                CommonBizException.throwException(CommonEnum.USERNAME_PASSWORD_ERROR);
             }else {
-                LoginResultVo loginResultVo = LoginResultVo.builder()
+                loginResultVo = LoginResultVo.builder()
                         .id(user.getId())
                         .username(user.getUsername())
                         .name(user.getName())
@@ -109,10 +112,11 @@ public class UserServiceImpl implements UserService {
                         .build();
                 Map<String, Object> claims = BeanUtil.beanToMap(loginResultVo,  false, true);
                 loginResultVo.setToken(JwtUtils.generateToken(claims));
-                return loginResultVo;
+
             }
 
         }
+        return loginResultVo;
     }
 
 }

@@ -3,6 +3,8 @@ package com.qk.management.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.qk.common.PageResult;
 import com.qk.entity.Dept;
+import com.qk.enums.CommonEnum;
+import com.qk.exception.CommonBizException;
 import com.qk.management.mapper.DeptMapper;
 import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.DeptService;
@@ -34,7 +36,7 @@ public class DeptServiceImpl implements DeptService {
     public void updateById(Dept dept) {
         boolean hasNull = BeanUtil.hasNullField(dept, "createTime", "updateTime");
         if (hasNull) {
-            throw new RuntimeException("参数错误");
+            CommonBizException.throwException(CommonEnum.PARAM_ERROR);
         }
         dept.setUpdateTime(LocalDateTime.now());
         deptMapper.updateById(dept);
@@ -48,7 +50,7 @@ public class DeptServiceImpl implements DeptService {
     @Override
     public void deleteById(Integer id) {
         if (userMapper.countByDeptId(id) > 0) {
-            throw new RuntimeException("该部门下有用户，请先删除用户");
+            CommonBizException.throwException(CommonEnum.USER_IS_EXIST);
         }else {
             deptMapper.deleteById(id);
         }
@@ -73,7 +75,7 @@ public class DeptServiceImpl implements DeptService {
     public void addDept(Dept dept) {
         boolean hasNull = BeanUtil.hasNullField(dept, "id", "createTime", "updateTime");
         if (hasNull) {
-            throw new RuntimeException("参数错误");
+            CommonBizException.throwException(CommonEnum.PARAM_ERROR);
         }
         dept.setCreateTime(LocalDateTime.now());
         dept.setUpdateTime(LocalDateTime.now());

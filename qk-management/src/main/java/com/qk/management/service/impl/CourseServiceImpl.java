@@ -3,6 +3,8 @@ package com.qk.management.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.qk.common.PageResult;
 import com.qk.entity.Course;
+import com.qk.enums.CommonEnum;
+import com.qk.exception.CommonBizException;
 import com.qk.management.mapper.CourseMapper;
 import com.qk.management.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,7 @@ public class CourseServiceImpl implements CourseService {
     public void addCourse(Course course) {
         boolean hasNull = BeanUtil.hasNullField(course, "id", "description", "createTime", "updateTime");
         if (hasNull) {
-            throw new RuntimeException("参数错误");
+            CommonBizException.throwException(CommonEnum.PARAM_ERROR);
         }
         course.setCreateTime(LocalDateTime.now());
         course.setUpdateTime(LocalDateTime.now());
@@ -58,7 +60,7 @@ public class CourseServiceImpl implements CourseService {
     public void updateById(Course course) {
         boolean hasNull = BeanUtil.hasNullField(course, "description", "createTime", "updateTime");
         if (hasNull) {
-            throw new RuntimeException("参数错误");
+            CommonBizException.throwException(CommonEnum.PARAM_ERROR);
         }
         course.setUpdateTime(LocalDateTime.now());
         courseMapper.updateById(course);

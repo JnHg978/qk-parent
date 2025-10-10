@@ -2,6 +2,8 @@ package com.qk.management.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.qk.common.PageResult;
+import com.qk.enums.CommonEnum;
+import com.qk.exception.CommonBizException;
 import com.qk.vo.ActivityVO;
 import com.qk.entity.Activity;
 import com.qk.management.mapper.ActivityMapper;
@@ -40,7 +42,7 @@ public class ActivityServiceImpl implements ActivityService {
     public void addActivity(Activity activity) {
         boolean hasNull = BeanUtil.hasNullField(activity, "id", "discount", "voucher", "createTime", "updateTime");
         if (hasNull) {
-            throw new RuntimeException("参数错误");
+            CommonBizException.throwException(CommonEnum.PARAM_ERROR);
         }
         activity.setCreateTime(LocalDateTime.now());
         activity.setUpdateTime(LocalDateTime.now());
@@ -61,7 +63,7 @@ public class ActivityServiceImpl implements ActivityService {
     public void updateById(Activity activity) {
         boolean hasNull = BeanUtil.hasNullField(activity, "discount", "voucher", "createTime", "updateTime");
         if (hasNull) {
-            throw new RuntimeException("参数错误");
+            CommonBizException.throwException(CommonEnum.PARAM_ERROR);
         }
         activity.setUpdateTime(LocalDateTime.now());
         activityMapper.updateById(activity);
