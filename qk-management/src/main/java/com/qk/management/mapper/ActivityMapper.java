@@ -1,6 +1,6 @@
 package com.qk.management.mapper;
 
-import com.qk.domain.ActivityDO;
+import com.qk.vo.ActivityVO;
 import com.qk.entity.Activity;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,7 +17,7 @@ import java.util.List;
 public interface ActivityMapper {
     Long count(Integer channel, Integer type, Integer status);
 
-    List<ActivityDO> select(Integer channel, Integer type, Integer status, Integer offset, Integer pageSize);
+    List<Activity> select(Integer channel, Integer type, Integer status, Integer offset, Integer pageSize);
 
     void insert(Activity activity);
 

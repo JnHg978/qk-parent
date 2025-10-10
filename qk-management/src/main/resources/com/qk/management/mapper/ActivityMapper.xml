@@ -62,7 +62,7 @@
             </if>
         </where>
     </select>
-    <select id="select" resultType="com.qk.domain.ActivityDO">
+    <select id="select" resultType="com.qk.entity.Activity">
         select * from activity
         <where>
             <if test="channel != null">

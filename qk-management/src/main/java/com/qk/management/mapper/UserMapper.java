@@ -43,5 +43,5 @@ public interface UserMapper {
     @Select("select count(*) from user where dept_id = #{id}")
     Integer countByDeptId(Integer id);
 
-    LoginResultVo selectByUsernameAndPassword(LoginDTO loginDTO);
+    UserDO selectByUsernameAndPassword(LoginDTO loginDTO);
 }

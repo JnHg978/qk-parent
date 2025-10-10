@@ -2,7 +2,7 @@ package com.qk.management.controller;
 
 import com.qk.common.PageResult;
 import com.qk.common.Result;
-import com.qk.domain.ActivityDO;
+import com.qk.vo.ActivityVO;
 import com.qk.entity.Activity;
 import com.qk.management.service.ActivityService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ public class ActivityController {
                        @RequestParam(required = false) Integer status,
                        @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer pageSize) {
-        PageResult<ActivityDO> result = activityService.page(channel, type, status, page, pageSize);
+        PageResult<ActivityVO> result = activityService.page(channel, type, status, page, pageSize);
         return Result.success(result);
     }
 

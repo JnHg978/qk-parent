@@ -6,6 +6,7 @@ import com.qk.dto.LoginDTO;
 import com.qk.dto.UserDTO;
 import com.qk.entity.User;
 import com.qk.vo.LoginResultVo;
+import com.qk.vo.UserVO;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @Description:
  */
 public interface UserService {
-    PageResult<UserDO> page(UserDTO userDTO);
+    PageResult<UserVO> page(UserDTO userDTO);
 
     void addUser(User user);
 

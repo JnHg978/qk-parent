@@ -1,4 +1,4 @@
-package com.qk.domain;
+package com.qk.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * @Description:
  */
 @Data
-public class UserDO {
+public class UserVO {
     /**
      * id, 主键
      */
@@ -87,6 +87,4 @@ public class UserDO {
     //扩展属性
     private String deptName; //部门名称
     private String roleName; //角色名称
-
-    private String roleLabel; // 角色标签
 }

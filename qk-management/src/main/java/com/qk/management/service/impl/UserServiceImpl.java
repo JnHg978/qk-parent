@@ -10,6 +10,7 @@ import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.UserService;
 import com.qk.utils.JwtUtils;
 import com.qk.vo.LoginResultVo;
+import com.qk.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -29,14 +30,15 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public PageResult<UserDO> page(UserDTO userDTO) {
+    public PageResult<UserVO> page(UserDTO userDTO) {
         Long total = userMapper.count(userDTO);
         Integer offset = (userDTO.getPage() - 1) * userDTO.getPageSize();
         userDTO.setPage(offset);
-        List<UserDO> userList = userMapper.select(userDTO);
-        return PageResult.<UserDO>builder()
+        List<UserDO> result = userMapper.select(userDTO);
+        List<UserVO> rows = BeanUtil.copyToList(result, UserVO.class);
+        return PageResult.<UserVO>builder()
                 .total(total)
-                .rows(userList)
+                .rows(rows)
                 .build();
     }
 
@@ -86,14 +88,15 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("参数错误");
         }
         loginDTO.setPassword(DigestUtils.md5DigestAsHex((loginDTO.getPassword()).getBytes()));
-        LoginResultVo loginResultVo = userMapper.selectByUsernameAndPassword(loginDTO);
-        if (loginResultVo == null){
+        UserDO userDO = userMapper.selectByUsernameAndPassword(loginDTO);
+        if (userDO == null){
             throw new RuntimeException("账号/密码错误！");
         } else {
+            LoginResultVo loginResultVo = new LoginResultVo();
             Map<String, Object> claims = BeanUtil.beanToMap(loginResultVo,  false, true);
             loginResultVo.setToken(JwtUtils.generateToken(claims));
+            return loginResultVo;
         }
-        return loginResultVo;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.qk.domain;
+package com.qk.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * @Description:
  */
 @Data
-public class ActivityDO {
+public class ActivityVO {
     /**
      * 活动ID，主键
      */

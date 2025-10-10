@@ -2,7 +2,7 @@ package com.qk.management.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.qk.common.PageResult;
-import com.qk.domain.ActivityDO;
+import com.qk.vo.ActivityVO;
 import com.qk.entity.Activity;
 import com.qk.management.mapper.ActivityMapper;
 import com.qk.management.service.ActivityService;
@@ -25,13 +25,14 @@ public class ActivityServiceImpl implements ActivityService {
 
 
     @Override
-    public PageResult<ActivityDO> page(Integer channel, Integer type, Integer status, Integer page, Integer pageSize) {
+    public PageResult<ActivityVO> page(Integer channel, Integer type, Integer status, Integer page, Integer pageSize) {
         Long total = activityMapper.count(channel, type, status);
         Integer offset = (page - 1) * pageSize;
-        List<ActivityDO> result = activityMapper.select(channel, type, status, offset, pageSize);
-        return PageResult.<ActivityDO>builder()
+        List<Activity> result = activityMapper.select(channel, type, status, offset, pageSize);
+        List<ActivityVO> rows = BeanUtil.copyToList(result, ActivityVO.class);
+        return PageResult.<ActivityVO>builder()
                 .total(total)
-                .rows(result)
+                .rows(rows)
                 .build();
     }
 

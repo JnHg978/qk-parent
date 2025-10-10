@@ -1,7 +1,7 @@
 package com.qk.management.service;
 
 import com.qk.common.PageResult;
-import com.qk.domain.ActivityDO;
+import com.qk.vo.ActivityVO;
 import com.qk.entity.Activity;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface ActivityService {
 
-    PageResult<ActivityDO> page(Integer channel, Integer type, Integer status, Integer page, Integer pageSize);
+    PageResult<ActivityVO> page(Integer channel, Integer type, Integer status, Integer page, Integer pageSize);
 
     void addActivity(Activity activity);
 

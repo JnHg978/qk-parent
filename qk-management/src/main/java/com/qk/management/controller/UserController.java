@@ -6,6 +6,7 @@ import com.qk.domain.UserDO;
 import com.qk.dto.UserDTO;
 import com.qk.entity.User;
 import com.qk.management.service.UserService;
+import com.qk.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class UserController {
     @GetMapping
     public Result page(UserDTO userDTO) {
         log.info("分页查询用户, 参数: {}", userDTO);
-        PageResult<UserDO> result = userService.page(userDTO);
+        PageResult<UserVO> result = userService.page(userDTO);
         return Result.success(result);
     }
 
