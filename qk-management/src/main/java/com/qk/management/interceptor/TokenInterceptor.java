@@ -16,14 +16,14 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Slf4j
 @Component
 public class TokenInterceptor implements HandlerInterceptor {
+
+    private static final String TOKEN_HEADER_NAME = "token";
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("开始拦截请求......");
-        if ("/login".equals(request.getRequestURI())){
-            log.info("登录操作, 直接放行");
-            return true;
-        }
-        String token = request.getHeader("token");
+
+        String token = request.getHeader(TOKEN_HEADER_NAME);
         if (token == null){
             log.info("解析 token 出错, 拒绝访问, 401");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

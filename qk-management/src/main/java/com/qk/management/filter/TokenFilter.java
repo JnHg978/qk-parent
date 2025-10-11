@@ -1,5 +1,6 @@
 package com.qk.management.filter;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.qk.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.*;
@@ -19,19 +20,22 @@ import java.io.IOException;
 @WebFilter(urlPatterns = "/*")
 public class TokenFilter implements Filter {
 
+    private static final String LOGIN_URI = "/login";
+    private static final String TOKEN_HEADER_NAME = "token";
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         log.info("开始过滤请求......");
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
-        if ("/login".equals(httpServletRequest.getRequestURI())) {
+        if (ObjectUtil.equals(httpServletRequest.getRequestURI(), LOGIN_URI)) {
             log.info("登录操作, 直接放行");
             chain.doFilter(request, response);
             return;
         }
 
-        String token = httpServletRequest.getHeader("token");
+        String token = httpServletRequest.getHeader(TOKEN_HEADER_NAME);
         if (token == null) {
             log.info("解析 token 出错, 拒绝访问, 401");
             httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

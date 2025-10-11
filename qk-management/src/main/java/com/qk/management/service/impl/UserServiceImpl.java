@@ -113,7 +113,7 @@ public class UserServiceImpl implements UserService {
                     .image(user.getImage())
                     .roleLabel(roleMapper.selectById(user.getRoleId()).getLabel())
                     .build();
-            Map<String, Object> claims = BeanUtil.beanToMap(loginResultVo, false, true);
+            Map<String, Object> claims = BeanUtil.beanToMap(loginResultVo, "id", "username");
             loginResultVo.setToken(JwtUtils.generateToken(claims));
             return loginResultVo;
         }
