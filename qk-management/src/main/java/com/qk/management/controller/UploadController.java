@@ -23,11 +23,13 @@ public class UploadController {
     @PostMapping("/upload")
     public Result upload(MultipartFile image) throws Exception {
         log.info("文件上传开始：{}", image.getOriginalFilename());
-        //获取原始文件后缀名
+        // 获取原始文件后缀名
         String originalFilename = image.getOriginalFilename();
         String suffixName = originalFilename.substring(originalFilename.lastIndexOf("."));
-        //生成新的文件名
-        String objectName = UUID.randomUUID() + suffixName;
+        // 生成文件夹名Avatar
+        String folderName = "Avatar/";
+        // 生成新的文件名 + ;
+        String objectName = new StringBuilder(folderName).append(UUID.randomUUID()).append(suffixName).toString();
         String url = aliYunOSSOperators.upload(image.getBytes(), objectName);
         return Result.success(url);
     }

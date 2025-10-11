@@ -32,4 +32,6 @@ public interface UserService {
     List<User> getByDept(Integer deptId);
 
     LoginResultVo login(LoginDTO loginDTO);
+
+    List<String> getAllImage();
 }

@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @Author: hjh
@@ -119,6 +120,12 @@ public class UserServiceImpl implements UserService {
         }
 
         return null;
+    }
+
+    @Override
+    public List<String> getAllImage() {
+        List<User> all = userMapper.getAll();
+        return all.stream().map(User::getImage).map(str -> str.substring(str.lastIndexOf("Avatar"))).toList();
     }
 
 }

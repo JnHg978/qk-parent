@@ -3,6 +3,7 @@ package com.qk.management;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @Author: hjh
@@ -10,6 +11,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
  * @Description: 轻客管家项目启动类
  */
 //@ServletComponentScan
+@EnableScheduling
 @SpringBootApplication
 public class QkManagementApplication {
     public static void main(String[] args) {
