@@ -5,7 +5,7 @@ package com.qk.constant;
  * @Date: 2025/10/14 8:52
  * @Description:
  */
-public class CommonConstants {
+public class ClueStatusConstants {
     public static final Integer WAIT_ALLOCATION = 1;
     public static final Integer WAIT_FOLLOW = 2;
     public static final Integer FOLLOWING = 3;

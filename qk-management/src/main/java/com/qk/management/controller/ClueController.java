@@ -67,4 +67,11 @@ public class ClueController {
         clueService.followClue(clueDTO);
         return Result.success();
     }
+
+    @PutMapping("/toBusiness/{id}")
+    public Result convertToBusiness(@PathVariable Integer id) {
+        log.info("转商机: {}", id);
+        clueService.convertToBusiness(id);
+        return Result.success();
+    }
 }

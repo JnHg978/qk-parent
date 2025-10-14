@@ -27,4 +27,6 @@ public interface ClueService extends IService<Clue> {
     ClueFollowVO getById(Integer id);
 
     void followClue(FollowClueDTO clueDTO);
+
+    void convertToBusiness(Integer id);
 }

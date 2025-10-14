@@ -4,17 +4,20 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qk.common.PageResult;
+import com.qk.constant.BusinessStatusConstants;
 import com.qk.constant.ClueTrackRecordStatus;
-import com.qk.constant.CommonConstants;
+import com.qk.constant.ClueStatusConstants;
 import com.qk.dto.clue.ClueDTO;
 import com.qk.dto.clue.ClueQueryDTO;
 import com.qk.dto.clue.FalseClueDTO;
 import com.qk.dto.clue.FollowClueDTO;
+import com.qk.entity.Business;
 import com.qk.entity.Clue;
 import com.qk.entity.ClueTrackRecord;
 import com.qk.entity.User;
 import com.qk.enums.CommonEnum;
 import com.qk.exception.CommonBizException;
+import com.qk.management.mapper.BusinessMapper;
 import com.qk.management.mapper.ClueMapper;
 import com.qk.management.mapper.ClueTrackRecordMapper;
 import com.qk.management.mapper.UserMapper;
@@ -45,6 +48,9 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
     @Autowired
     private ClueTrackRecordMapper clueTrackRecordMapper;
 
+    @Autowired
+    private BusinessMapper businessMapper;
+
     @Override
     public PageResult<ClueVO> page(ClueQueryDTO clueQueryDTO) {
         Page<ClueVO> clueVOPage = this.baseMapper.selectPage(Page.of(clueQueryDTO.getPage(), clueQueryDTO.getPageSize()), clueQueryDTO);
@@ -62,7 +68,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
         Clue clue = BeanUtil.copyProperties(clueDTO, Clue.class);
         clue.setCreateTime(LocalDateTime.now());
         clue.setUpdateTime(LocalDateTime.now());
-        clue.setStatus(CommonConstants.WAIT_ALLOCATION);
+        clue.setStatus(ClueStatusConstants.WAIT_ALLOCATION);
         baseMapper.insert(clue);
     }
 
@@ -77,7 +83,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
             CommonBizException.throwException(CommonEnum.USER_NOT_EXIST);
         }
         clue.setUserId(userId);
-        clue.setStatus(CommonConstants.WAIT_FOLLOW);
+        clue.setStatus(ClueStatusConstants.WAIT_FOLLOW);
         clue.setUpdateTime(LocalDateTime.now());
         baseMapper.updateById(clue);
     }
@@ -89,7 +95,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
         if (Objects.isNull(clue)) {
             CommonBizException.throwException(CommonEnum.CLUE_NOT_EXIST);
         }
-        clue.setStatus(CommonConstants.FALSE_CLUE);
+        clue.setStatus(ClueStatusConstants.FALSE_CLUE);
         clue.setUpdateTime(LocalDateTime.now());
         ClueTrackRecord clueTrackRecord = ClueTrackRecord.builder()
                 .clueId(id)
@@ -152,7 +158,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
                 .level(clueDTO.getLevel())
                 .nextTime(clueDTO.getNextTime())
                 .updateTime(LocalDateTime.now())
-                .status(CommonConstants.FOLLOWING)
+                .status(ClueStatusConstants.FOLLOWING)
                 .build();
 
         baseMapper.updateById(clue);
@@ -167,6 +173,25 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
                 .nextTime(clueDTO.getNextTime())
                 .build();
         clueTrackRecordMapper.insertNewRecord(clueTrackRecord);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void convertToBusiness(Integer id) {
+        Clue clue = baseMapper.selectById(id);
+        if (Objects.isNull(clue)) {
+            CommonBizException.throwException(CommonEnum.CLUE_NOT_EXIST);
+        }
+        clue.setStatus(ClueStatusConstants.CONVERT_TO_BUSINESS);
+        clue.setUpdateTime(LocalDateTime.now());
+        baseMapper.updateById(clue);
+
+        Business business = BeanUtil.copyProperties(clue, Business.class, "id", "status", "userId", "nextTime", "createTime", "updateTime");
+        business.setClueId(clue.getId());
+        business.setStatus(BusinessStatusConstants.WAIT_ALLOCATION);
+        business.setCreateTime(LocalDateTime.now());
+        business.setUpdateTime(LocalDateTime.now());
+        businessMapper.insert(business);
     }
 
 }
