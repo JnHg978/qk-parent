@@ -37,4 +37,11 @@ public class ClueController {
         clueService.insert(clueDTO);
         return Result.success();
     }
+
+    @PutMapping("/assign/{clueId}/{userId}")
+    public Result assign(@PathVariable Integer clueId, @PathVariable Integer userId) {
+        log.info("分配线索: {}", clueId);
+        clueService.assign(clueId, userId);
+        return Result.success();
+    }
 }

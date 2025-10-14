@@ -10,6 +10,8 @@ public enum CommonEnum implements  Code{
     USERNAME_PASSWORD_ERROR(1002, "账号/密码错误"),
     USER_IS_EXIST(1003, "用户存在"),
     USER_DEACTIVATED(1004, "用户已停用"),
+    USER_NOT_EXIST(1005, "用户不存在"),
+    CLUE_NOT_EXIST(1006, "线索不存在"),
     ;
 
     private final Integer code;

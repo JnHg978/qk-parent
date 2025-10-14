@@ -16,4 +16,6 @@ public interface ClueService extends IService<Clue> {
     PageResult<ClueVO> page(ClueQueryDTO clueQueryDTO);
 
     void insert(ClueDTO clueDTO);
+
+    void assign(Integer clueId, Integer userId);
 }
