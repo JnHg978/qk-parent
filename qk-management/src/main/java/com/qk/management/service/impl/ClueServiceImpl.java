@@ -14,7 +14,7 @@ import com.qk.entity.ClueTrackRecord;
 import com.qk.entity.User;
 import com.qk.enums.CommonEnum;
 import com.qk.exception.CommonBizException;
-import com.qk.management.mapper.BusinessMapper;
+import com.qk.management.mapper.BizMapper;
 import com.qk.management.mapper.ClueMapper;
 import com.qk.management.mapper.ClueTrackRecordMapper;
 import com.qk.management.mapper.UserMapper;
@@ -47,7 +47,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
     private ClueTrackRecordMapper clueTrackRecordMapper;
 
     @Autowired
-    private BusinessMapper businessMapper;
+    private BizMapper bizMapper;
 
     @Override
     public PageResult<ClueVO> page(ClueQueryDTO clueQueryDTO) {
@@ -189,7 +189,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
         business.setStatus(BusinessStatusConstants.WAIT_ALLOCATION);
         business.setCreateTime(LocalDateTime.now());
         business.setUpdateTime(LocalDateTime.now());
-        businessMapper.insert(business);
+        bizMapper.insert(business);
     }
 
     @Override

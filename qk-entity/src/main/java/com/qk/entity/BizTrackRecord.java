@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("business_track_record")
-public class BusinessTrackRecord {
+public class BizTrackRecord {
     private Integer id; // 跟进记录id, 主键
     private Integer businessId; // 商机id，关联商机id
     private Integer userId; // 跟进人id，关联用户id
