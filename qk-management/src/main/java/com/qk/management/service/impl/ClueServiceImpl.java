@@ -7,16 +7,20 @@ import com.qk.common.PageResult;
 import com.qk.constant.CommonConstants;
 import com.qk.dto.clue.ClueDTO;
 import com.qk.dto.clue.ClueQueryDTO;
+import com.qk.dto.clue.FalseClueDTO;
 import com.qk.entity.Clue;
+import com.qk.entity.ClueTrackRecord;
 import com.qk.entity.User;
 import com.qk.enums.CommonEnum;
 import com.qk.exception.CommonBizException;
 import com.qk.management.mapper.ClueMapper;
+import com.qk.management.mapper.ClueTrackRecordMapper;
 import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.ClueService;
 import com.qk.vo.ClueVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -31,6 +35,9 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private ClueTrackRecordMapper clueTrackRecordMapper;
 
     @Override
     public PageResult<ClueVO> page(ClueQueryDTO clueQueryDTO) {
@@ -67,5 +74,28 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
         clue.setStatus(CommonConstants.FOLLOWING);
         clue.setUpdateTime(LocalDateTime.now());
         baseMapper.updateById(clue);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void falseClue(Integer id, FalseClueDTO falseClueDTO) {
+        Clue clue = baseMapper.selectById(id);
+        if (Objects.isNull(clue)) {
+            CommonBizException.throwException(CommonEnum.CLUE_NOT_EXIST);
+        }
+        clue.setStatus(CommonConstants.FALSE_CLUE);
+        clue.setUpdateTime(LocalDateTime.now());
+        ClueTrackRecord clueTrackRecord = ClueTrackRecord.builder()
+                .clueId(id)
+                .userId(clue.getUserId())
+                .subject(clue.getSubject())
+                .level(clue.getLevel())
+                .record(falseClueDTO.getRemark())
+                .falseReason(falseClueDTO.getReason())
+                .type(CommonConstants.FALSE_CLUE)
+                .createTime(LocalDateTime.now())
+                .build();
+        baseMapper.updateById(clue);
+        clueTrackRecordMapper.insert(clueTrackRecord);
     }
 }

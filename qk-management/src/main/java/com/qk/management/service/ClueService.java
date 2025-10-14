@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.qk.common.PageResult;
 import com.qk.dto.clue.ClueDTO;
 import com.qk.dto.clue.ClueQueryDTO;
+import com.qk.dto.clue.FalseClueDTO;
 import com.qk.entity.Clue;
 import com.qk.vo.ClueVO;
 
@@ -18,4 +19,6 @@ public interface ClueService extends IService<Clue> {
     void insert(ClueDTO clueDTO);
 
     void assign(Integer clueId, Integer userId);
+
+    void falseClue(Integer id, FalseClueDTO falseClueDTO);
 }
