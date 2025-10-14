@@ -44,4 +44,9 @@ public class TokenInterceptor implements HandlerInterceptor {
         log.info("令牌合法, 放行");
         return true;
     }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        CurrentUserHoler.removeCurrentUser();
+    }
 }
