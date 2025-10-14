@@ -6,7 +6,8 @@ import com.qk.dto.clue.ClueDTO;
 import com.qk.dto.clue.ClueQueryDTO;
 import com.qk.dto.clue.FalseClueDTO;
 import com.qk.entity.Clue;
-import com.qk.vo.ClueVO;
+import com.qk.vo.clue.ClueFollowVO;
+import com.qk.vo.clue.ClueVO;
 
 /**
  * @Author: hjh
@@ -21,4 +22,6 @@ public interface ClueService extends IService<Clue> {
     void assign(Integer clueId, Integer userId);
 
     void falseClue(Integer id, FalseClueDTO falseClueDTO);
+
+    ClueFollowVO getById(Integer id);
 }

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qk.dto.clue.ClueQueryDTO;
 import com.qk.entity.Clue;
-import com.qk.vo.ClueVO;
+import com.qk.vo.clue.ClueVO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

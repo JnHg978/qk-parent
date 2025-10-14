@@ -17,11 +17,13 @@ import com.qk.management.mapper.ClueMapper;
 import com.qk.management.mapper.ClueTrackRecordMapper;
 import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.ClueService;
-import com.qk.vo.ClueVO;
+import com.qk.vo.clue.ClueFollowVO;
+import com.qk.vo.clue.ClueVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -98,4 +100,29 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
         baseMapper.updateById(clue);
         clueTrackRecordMapper.insert(clueTrackRecord);
     }
+
+    @Override
+    public ClueFollowVO getById(Integer id) {
+        Clue clue = baseMapper.selectById(id);
+        if (Objects.isNull(clue)) {
+            CommonBizException.throwException(CommonEnum.CLUE_NOT_EXIST);
+        }
+        ClueFollowVO clueFollowVO = ClueFollowVO.builder()
+                .id(clue.getId())
+                .phone(clue.getPhone())
+                .channel(clue.getChannel())
+                .activityId(clue.getActivityId())
+                .name(clue.getName())
+                .gender(clue.getGender())
+                .age(clue.getAge())
+                .wechat(clue.getWechat())
+                .qq(clue.getQq())
+                .subject(clue.getSubject())
+                .level(clue.getLevel())
+                .nextTime(clue.getNextTime())
+                .build();
+        clueFollowVO.setTrackRecords(clueTrackRecordMapper.selectByClueId(id));
+        return clueFollowVO;
+    }
+
 }

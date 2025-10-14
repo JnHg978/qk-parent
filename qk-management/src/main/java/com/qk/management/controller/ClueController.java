@@ -5,8 +5,10 @@ import com.qk.common.Result;
 import com.qk.dto.clue.ClueDTO;
 import com.qk.dto.clue.ClueQueryDTO;
 import com.qk.dto.clue.FalseClueDTO;
+import com.qk.entity.Clue;
 import com.qk.management.service.ClueService;
-import com.qk.vo.ClueVO;
+import com.qk.vo.clue.ClueFollowVO;
+import com.qk.vo.clue.ClueVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,9 +48,16 @@ public class ClueController {
     }
 
     @PutMapping("/false/{id}")
-    public Result falseClue(@PathVariable Integer id, FalseClueDTO falseClueDTO) {
+    public Result falseClue(@PathVariable Integer id, @RequestBody FalseClueDTO falseClueDTO) {
         log.info("伪线索: {}", id);
         clueService.falseClue(id, falseClueDTO);
         return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    public Result get(@PathVariable Integer id) {
+        log.info("查询线索: {}", id);
+        ClueFollowVO result = clueService.getById(id);
+        return Result.success(result);
     }
 }

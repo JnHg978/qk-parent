@@ -1,4 +1,4 @@
-package com.qk.vo;
+package com.qk.vo.clue;
 
 import lombok.Builder;
 import lombok.Data;
