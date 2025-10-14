@@ -2,12 +2,10 @@ package com.qk.management.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qk.common.PageResult;
-import com.qk.dto.clue.ClueDTO;
-import com.qk.dto.clue.ClueQueryDTO;
-import com.qk.dto.clue.FalseClueDTO;
-import com.qk.dto.clue.FollowClueDTO;
+import com.qk.dto.clue.*;
 import com.qk.entity.Clue;
 import com.qk.vo.clue.ClueFollowVO;
+import com.qk.vo.clue.CluePoolVO;
 import com.qk.vo.clue.ClueVO;
 
 /**
@@ -29,4 +27,6 @@ public interface ClueService extends IService<Clue> {
     void followClue(FollowClueDTO clueDTO);
 
     void convertToBusiness(Integer id);
+
+    PageResult<CluePoolVO> cluePoolPage(CluePoolQueryDTO cluePoolQueryDTO);
 }

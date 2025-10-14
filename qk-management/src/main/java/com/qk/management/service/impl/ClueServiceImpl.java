@@ -7,10 +7,7 @@ import com.qk.common.PageResult;
 import com.qk.constant.BusinessStatusConstants;
 import com.qk.constant.ClueTrackRecordStatus;
 import com.qk.constant.ClueStatusConstants;
-import com.qk.dto.clue.ClueDTO;
-import com.qk.dto.clue.ClueQueryDTO;
-import com.qk.dto.clue.FalseClueDTO;
-import com.qk.dto.clue.FollowClueDTO;
+import com.qk.dto.clue.*;
 import com.qk.entity.Business;
 import com.qk.entity.Clue;
 import com.qk.entity.ClueTrackRecord;
@@ -24,6 +21,7 @@ import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.ClueService;
 import com.qk.util.CurrentUserHoler;
 import com.qk.vo.clue.ClueFollowVO;
+import com.qk.vo.clue.CluePoolVO;
 import com.qk.vo.clue.ClueTrackRecordVO;
 import com.qk.vo.clue.ClueVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -192,6 +190,16 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
         business.setCreateTime(LocalDateTime.now());
         business.setUpdateTime(LocalDateTime.now());
         businessMapper.insert(business);
+    }
+
+    @Override
+    public PageResult<CluePoolVO> cluePoolPage(CluePoolQueryDTO cluePoolQueryDTO) {
+        Page<CluePoolVO> page = new Page<>(cluePoolQueryDTO.getPage(), cluePoolQueryDTO.getPageSize());
+        Page<CluePoolVO> result = baseMapper.cluePoolPage(page, cluePoolQueryDTO);
+        return PageResult.<CluePoolVO>builder()
+                .total(result.getTotal())
+                .rows(result.getRecords())
+                .build();
     }
 
 }

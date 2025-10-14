@@ -2,12 +2,10 @@ package com.qk.management.controller;
 
 import com.qk.common.PageResult;
 import com.qk.common.Result;
-import com.qk.dto.clue.ClueDTO;
-import com.qk.dto.clue.ClueQueryDTO;
-import com.qk.dto.clue.FalseClueDTO;
-import com.qk.dto.clue.FollowClueDTO;
+import com.qk.dto.clue.*;
 import com.qk.management.service.ClueService;
 import com.qk.vo.clue.ClueFollowVO;
+import com.qk.vo.clue.CluePoolVO;
 import com.qk.vo.clue.ClueVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +71,12 @@ public class ClueController {
         log.info("转商机: {}", id);
         clueService.convertToBusiness(id);
         return Result.success();
+    }
+
+    @GetMapping("/pool")
+    public Result cluePoolPage(CluePoolQueryDTO cluePoolQueryDTO){
+        log.info("线索池分页查询: {}", cluePoolQueryDTO);
+        PageResult<CluePoolVO> result = clueService.cluePoolPage(cluePoolQueryDTO);
+        return Result.success(result);
     }
 }

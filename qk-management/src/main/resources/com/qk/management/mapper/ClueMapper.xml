@@ -25,4 +25,21 @@
         </where>
         order by t1.update_time desc
     </select>
+    <select id="cluePoolPage" resultType="com.qk.vo.clue.CluePoolVO">
+        select t1.*, t2.name as activity_name from clue as t1
+        left join activity as t2
+        on t1.activity_id = t2.id
+        <where>
+            <if test="cluePoolQueryDTO.clueId != null">
+                and t1.id = #{cluePoolQueryDTO.clueId}
+            </if>
+            <if test="cluePoolQueryDTO.phone != null and cluePoolQueryDTO.phone != ''">
+                and t1.phone like concat('%', #{cluePoolQueryDTO.phone}, '%')
+            </if>
+            <if test="cluePoolQueryDTO.channel != null">
+                and t1.channel = #{cluePoolQueryDTO.channel}
+            </if>
+        </where>
+        order by t1.update_time desc
+    </select>
 </mapper>
