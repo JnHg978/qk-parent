@@ -2,6 +2,7 @@ package com.qk.management.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qk.common.PageResult;
+import com.qk.dto.clue.ClueDTO;
 import com.qk.dto.clue.ClueQueryDTO;
 import com.qk.entity.Clue;
 import com.qk.vo.ClueVO;
@@ -13,4 +14,6 @@ import com.qk.vo.ClueVO;
  */
 public interface ClueService extends IService<Clue> {
     PageResult<ClueVO> page(ClueQueryDTO clueQueryDTO);
+
+    void insert(ClueDTO clueDTO);
 }

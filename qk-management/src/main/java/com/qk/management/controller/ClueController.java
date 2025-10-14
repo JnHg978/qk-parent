@@ -2,15 +2,14 @@ package com.qk.management.controller;
 
 import com.qk.common.PageResult;
 import com.qk.common.Result;
+import com.qk.dto.clue.ClueDTO;
 import com.qk.dto.clue.ClueQueryDTO;
 import com.qk.entity.Clue;
 import com.qk.management.service.ClueService;
 import com.qk.vo.ClueVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author: hjh
@@ -30,5 +29,12 @@ public class ClueController {
         log.info("分页查询所有线索");
         PageResult<ClueVO> page = clueService.page(clueQueryDTO);
         return Result.success(page);
+    }
+
+    @PostMapping
+    public Result save(@RequestBody ClueDTO clueDTO) {
+        log.info("新增线索: {}", clueDTO);
+        clueService.insert(clueDTO);
+        return Result.success();
     }
 }
