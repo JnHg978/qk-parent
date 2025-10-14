@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qk.common.PageResult;
+import com.qk.constant.ClueTrackRecordStatus;
 import com.qk.constant.CommonConstants;
 import com.qk.dto.clue.ClueDTO;
 import com.qk.dto.clue.ClueQueryDTO;
@@ -76,7 +77,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
             CommonBizException.throwException(CommonEnum.USER_NOT_EXIST);
         }
         clue.setUserId(userId);
-        clue.setStatus(CommonConstants.FOLLOWING);
+        clue.setStatus(CommonConstants.WAIT_FOLLOW);
         clue.setUpdateTime(LocalDateTime.now());
         baseMapper.updateById(clue);
     }
@@ -97,7 +98,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
                 .level(clue.getLevel())
                 .record(falseClueDTO.getRemark())
                 .falseReason(falseClueDTO.getReason())
-                .type(CommonConstants.FALSE_CLUE)
+                .type(ClueTrackRecordStatus.FALSE_CLUE)
                 .createTime(LocalDateTime.now())
                 .build();
         baseMapper.updateById(clue);
@@ -161,7 +162,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
                 .subject(clueDTO.getSubject())
                 .level(clueDTO.getLevel())
                 .record(clueDTO.getRecord())
-                .type(CommonConstants.FOLLOWING)
+                .type(ClueTrackRecordStatus.NORMAL)
                 .createTime(LocalDateTime.now())
                 .nextTime(clueDTO.getNextTime())
                 .build();
