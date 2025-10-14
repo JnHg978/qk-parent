@@ -1,7 +1,10 @@
 package com.qk.management.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.qk.common.PageResult;
+import com.qk.dto.clue.ClueQueryDTO;
 import com.qk.entity.Clue;
+import com.qk.vo.ClueVO;
 
 /**
  * @Author: hjh
@@ -9,4 +12,5 @@ import com.qk.entity.Clue;
  * @Description:
  */
 public interface ClueService extends IService<Clue> {
+    PageResult<ClueVO> page(ClueQueryDTO clueQueryDTO);
 }

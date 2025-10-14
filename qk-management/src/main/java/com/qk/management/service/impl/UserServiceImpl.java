@@ -1,11 +1,10 @@
 package com.qk.management.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.ObjectUtil;
 import com.qk.common.PageResult;
 import com.qk.domain.UserDO;
-import com.qk.dto.LoginDTO;
-import com.qk.dto.UserDTO;
+import com.qk.dto.user.LoginDTO;
+import com.qk.dto.user.UserDTO;
 import com.qk.entity.User;
 import com.qk.enums.CommonEnum;
 import com.qk.exception.CommonBizException;
@@ -23,7 +22,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * @Author: hjh

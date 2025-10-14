@@ -1,8 +1,8 @@
 package com.qk.management.mapper;
 
 import com.qk.domain.UserDO;
-import com.qk.dto.LoginDTO;
-import com.qk.dto.UserDTO;
+import com.qk.dto.user.LoginDTO;
+import com.qk.dto.user.UserDTO;
 import com.qk.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

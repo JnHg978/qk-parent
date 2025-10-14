@@ -2,7 +2,7 @@ package com.qk.management.controller;
 
 import com.qk.common.PageResult;
 import com.qk.common.Result;
-import com.qk.dto.UserDTO;
+import com.qk.dto.user.UserDTO;
 import com.qk.entity.User;
 import com.qk.management.service.UserService;
 import com.qk.vo.UserVO;

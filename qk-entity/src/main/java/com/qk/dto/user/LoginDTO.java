@@ -1,4 +1,4 @@
-package com.qk.dto;
+package com.qk.dto.user;
 
 import lombok.Data;
 

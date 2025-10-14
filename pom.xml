@@ -28,6 +28,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <mybatis-plus-spring-boot.version>3.5.14</mybatis-plus-spring-boot.version>
+        <mybatis-plus-jsqlparser.version>3.5.14</mybatis-plus-jsqlparser.version>
         <lombok.version>1.18.38</lombok.version>
         <aliyun-oss.version>3.17.4</aliyun-oss.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
@@ -76,6 +77,12 @@
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-jsqlparser</artifactId>
+                <version>${mybatis-plus-jsqlparser.version}</version>
             </dependency>
 
             <dependency>
