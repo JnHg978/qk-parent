@@ -8,6 +8,7 @@ import com.qk.constant.CommonConstants;
 import com.qk.dto.clue.ClueDTO;
 import com.qk.dto.clue.ClueQueryDTO;
 import com.qk.dto.clue.FalseClueDTO;
+import com.qk.dto.clue.FollowClueDTO;
 import com.qk.entity.Clue;
 import com.qk.entity.ClueTrackRecord;
 import com.qk.entity.User;
@@ -17,14 +18,16 @@ import com.qk.management.mapper.ClueMapper;
 import com.qk.management.mapper.ClueTrackRecordMapper;
 import com.qk.management.mapper.UserMapper;
 import com.qk.management.service.ClueService;
+import com.qk.util.CurrentUserHoler;
 import com.qk.vo.clue.ClueFollowVO;
+import com.qk.vo.clue.ClueTrackRecordVO;
 import com.qk.vo.clue.ClueVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -117,12 +120,52 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
                 .age(clue.getAge())
                 .wechat(clue.getWechat())
                 .qq(clue.getQq())
+                .userId(clue.getUserId())
+                .status(clue.getStatus())
                 .subject(clue.getSubject())
                 .level(clue.getLevel())
                 .nextTime(clue.getNextTime())
                 .build();
-        clueFollowVO.setTrackRecords(clueTrackRecordMapper.selectByClueId(id));
+        List<ClueTrackRecordVO> clueTrackRecordVOS = clueTrackRecordMapper.selectByClueId(id);
+        clueFollowVO.setTrackRecords(clueTrackRecordVOS);
         return clueFollowVO;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void followClue(FollowClueDTO clueDTO) {
+        boolean hasNull = BeanUtil.hasNullField(clueDTO, "activityId", "name", "gender", "age", "wechat", "qq", "userId");
+        if (hasNull) {
+            CommonBizException.throwException(CommonEnum.PARAM_ERROR);
+        }
+        Clue clue = Clue.builder()
+                .id(clueDTO.getId())
+                .activityId(clueDTO.getActivityId())
+                .name(clueDTO.getName())
+                .gender(clueDTO.getGender())
+                .age(clueDTO.getAge())
+                .wechat(clueDTO.getWechat())
+                .qq(clueDTO.getQq())
+                .userId(CurrentUserHoler.getCurrentUser())
+                .subject(clueDTO.getSubject())
+                .level(clueDTO.getLevel())
+                .nextTime(clueDTO.getNextTime())
+                .updateTime(LocalDateTime.now())
+                .status(CommonConstants.FOLLOWING)
+                .build();
+
+        baseMapper.updateById(clue);
+        ClueTrackRecord clueTrackRecord = ClueTrackRecord.builder()
+                .clueId(clueDTO.getId())
+                .userId(CurrentUserHoler.getCurrentUser())
+                .subject(clueDTO.getSubject())
+                .level(clueDTO.getLevel())
+                .record(clueDTO.getRecord())
+                .type(CommonConstants.FOLLOWING)
+                .createTime(LocalDateTime.now())
+                .nextTime(clueDTO.getNextTime())
+                .build();
+        clueTrackRecordMapper.insertNewRecord(clueTrackRecord);
     }
 
 }

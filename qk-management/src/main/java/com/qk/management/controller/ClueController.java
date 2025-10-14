@@ -5,7 +5,7 @@ import com.qk.common.Result;
 import com.qk.dto.clue.ClueDTO;
 import com.qk.dto.clue.ClueQueryDTO;
 import com.qk.dto.clue.FalseClueDTO;
-import com.qk.entity.Clue;
+import com.qk.dto.clue.FollowClueDTO;
 import com.qk.management.service.ClueService;
 import com.qk.vo.clue.ClueFollowVO;
 import com.qk.vo.clue.ClueVO;
@@ -59,5 +59,12 @@ public class ClueController {
         log.info("查询线索: {}", id);
         ClueFollowVO result = clueService.getById(id);
         return Result.success(result);
+    }
+
+    @PutMapping
+    public Result followClue(@RequestBody FollowClueDTO clueDTO) {
+        log.info("更新线索: {}", clueDTO);
+        clueService.followClue(clueDTO);
+        return Result.success();
     }
 }

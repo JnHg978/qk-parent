@@ -1,5 +1,6 @@
 package com.qk.management.interceptor;
 
+import com.qk.util.CurrentUserHoler;
 import com.qk.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,6 +33,8 @@ public class TokenInterceptor implements HandlerInterceptor {
         try {
             // 解析 token
             Claims claims = JwtUtils.parseToken(token);
+            Object o = claims.get("id");
+            CurrentUserHoler.setCurrentUser((Integer) o);
         } catch (Exception e) {
             // 捕获解析 token 异常，返回 401 错误
             log.info("解析 token 出错, 拒绝访问, 401");
