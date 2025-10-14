@@ -4,7 +4,6 @@ import com.qk.common.PageResult;
 import com.qk.common.Result;
 import com.qk.dto.clue.ClueDTO;
 import com.qk.dto.clue.ClueQueryDTO;
-import com.qk.entity.Clue;
 import com.qk.management.service.ClueService;
 import com.qk.vo.ClueVO;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +41,13 @@ public class ClueController {
     public Result assign(@PathVariable Integer clueId, @PathVariable Integer userId) {
         log.info("分配线索: {}", clueId);
         clueService.assign(clueId, userId);
+        return Result.success();
+    }
+
+    @PutMapping("/false/{id}")
+    public Result falseClue(@PathVariable Integer id) {
+        log.info("伪线索: {}", id);
+
         return Result.success();
     }
 }

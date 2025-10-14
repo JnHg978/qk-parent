@@ -1,7 +1,6 @@
 package com.qk.management.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qk.common.PageResult;
@@ -20,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -36,12 +34,10 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
 
     @Override
     public PageResult<ClueVO> page(ClueQueryDTO clueQueryDTO) {
-        Long total = this.baseMapper.selectCount(null);
-        clueQueryDTO.setPage((clueQueryDTO.getPage() - 1) * clueQueryDTO.getPageSize());
-        List<ClueVO> rows = this.baseMapper.selectPage(clueQueryDTO);
+        Page<ClueVO> clueVOPage = this.baseMapper.selectPage(Page.of(clueQueryDTO.getPage(), clueQueryDTO.getPageSize()), clueQueryDTO);
         return PageResult.<ClueVO>builder()
-                .total(total)
-                .rows(rows)
+                .total(clueVOPage.getTotal())
+                .rows(clueVOPage.getRecords())
                 .build();
     }
 
