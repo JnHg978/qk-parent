@@ -43,4 +43,16 @@ public class BizServiceImpl extends ServiceImpl<BizMapper, Business> implements 
         business.setStatus(BusinessStatusConstants.WAIT_ALLOCATION);
         baseMapper.insert(business);
     }
+
+    @Override
+    public void assign(Integer businessId, Integer userId) {
+        Business business = baseMapper.selectById(businessId);
+        if(ObjectUtil.isEmpty(business)){
+            CommonBizException.throwException(CommonEnum.PARAM_ERROR);
+        }
+        business.setUserId(userId);
+        business.setStatus(BusinessStatusConstants.WAIT_FOLLOW);
+        business.setUpdateTime(LocalDateTime.now());
+        baseMapper.updateById(business);
+    }
 }

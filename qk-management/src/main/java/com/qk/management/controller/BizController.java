@@ -36,4 +36,11 @@ public class BizController {
         bizService.addBusiness(business);
         return Result.success();
     }
+
+    @PutMapping("/assign/{businessId}/{userId}")
+    public Result assign(@PathVariable Integer businessId, @PathVariable Integer userId){
+        log.info("分配参数：businessId={}, userId={}", businessId, userId);
+        bizService.assign(businessId, userId);
+        return Result.success();
+    }
 }
