@@ -1,5 +1,6 @@
 package com.qk.management.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -10,11 +11,16 @@ import com.qk.entity.Business;
 import com.qk.enums.CommonEnum;
 import com.qk.exception.CommonBizException;
 import com.qk.management.mapper.BizMapper;
+import com.qk.management.mapper.BizTrackRecordMapper;
 import com.qk.management.service.BizService;
 import com.qk.vo.BizVO;
+import com.qk.vo.business.BizFollowVO;
+import com.qk.vo.business.BizTrackRecordVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @Author: hjh
@@ -23,6 +29,10 @@ import java.time.LocalDateTime;
  */
 @Service
 public class BizServiceImpl extends ServiceImpl<BizMapper, Business> implements BizService {
+
+    @Autowired
+    private BizTrackRecordMapper bizTrackRecordMapper;
+
     @Override
     public PageResult<BizVO> page(BizQueryDTO bizQueryDTO) {
         Page<BizVO> page = Page.of(bizQueryDTO.getPage(), bizQueryDTO.getPageSize());
@@ -66,4 +76,18 @@ public class BizServiceImpl extends ServiceImpl<BizMapper, Business> implements 
         business.setUpdateTime(LocalDateTime.now());
         baseMapper.updateById(business);
     }
+
+    @Override
+    public BizFollowVO getRecordById(Integer id) {
+        Business business = baseMapper.selectById(id);
+        if(ObjectUtil.isEmpty(business)){
+            CommonBizException.throwException(CommonEnum.PARAM_ERROR);
+        }
+        BizFollowVO bizFollowVO = BeanUtil.copyProperties(business, BizFollowVO.class);
+        List<BizTrackRecordVO> trackRecords = bizTrackRecordMapper.selectByBizId(business.getId());
+        bizFollowVO.setTrackRecords(trackRecords);
+        return bizFollowVO;
+    }
+
+
 }

@@ -5,6 +5,7 @@ import com.qk.common.PageResult;
 import com.qk.dto.business.BizQueryDTO;
 import com.qk.entity.Business;
 import com.qk.vo.BizVO;
+import com.qk.vo.business.BizFollowVO;
 
 /**
  * @Author: hjh
@@ -19,4 +20,6 @@ public interface BizService extends IService<Business> {
     void assign(Integer businessId, Integer userId);
 
     void back(Integer id);
+
+    BizFollowVO getRecordById(Integer id);
 }

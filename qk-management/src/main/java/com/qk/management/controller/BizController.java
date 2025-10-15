@@ -6,6 +6,7 @@ import com.qk.dto.business.BizQueryDTO;
 import com.qk.entity.Business;
 import com.qk.management.service.BizService;
 import com.qk.vo.BizVO;
+import com.qk.vo.business.BizFollowVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -49,5 +50,12 @@ public class BizController {
         log.info("退回参数：{}", id);
         bizService.back(id);
         return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    public Result getRecordById(@PathVariable Integer id){
+        log.info("查询参数：{}", id);
+        BizFollowVO bizFollowVO = bizService.getRecordById(id);
+        return Result.success(bizFollowVO);
     }
 }
