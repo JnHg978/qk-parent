@@ -43,4 +43,11 @@ public class BizController {
         bizService.assign(businessId, userId);
         return Result.success();
     }
+
+    @PutMapping("/back/{id}")
+    public Result back(@PathVariable Integer id){
+        log.info("退回参数：{}", id);
+        bizService.back(id);
+        return Result.success();
+    }
 }

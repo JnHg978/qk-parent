@@ -55,4 +55,15 @@ public class BizServiceImpl extends ServiceImpl<BizMapper, Business> implements 
         business.setUpdateTime(LocalDateTime.now());
         baseMapper.updateById(business);
     }
+
+    @Override
+    public void back(Integer id) {
+        Business business = baseMapper.selectById(id);
+        if(ObjectUtil.isEmpty(business)){
+            CommonBizException.throwException(CommonEnum.PARAM_ERROR);
+        }
+        business.setStatus(BusinessStatusConstants.RECYCLE);
+        business.setUpdateTime(LocalDateTime.now());
+        baseMapper.updateById(business);
+    }
 }

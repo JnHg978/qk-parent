@@ -20,12 +20,13 @@
             <if test="bizQueryDTO.phone != null and bizQueryDTO.phone != ''">
                 and t1.phone like concat('%', #{bizQueryDTO.phone}, '%')
             </if>
-            <if test="bizQueryDTO.status != null">
-                and t1.status = #{bizQueryDTO.status}
-            </if>
             <if test="bizQueryDTO.assignName != null and bizQueryDTO.assignName != ''">
                 and t2.name like concat('%', #{bizQueryDTO.assignName}, '%')
             </if>
+            <if test="bizQueryDTO.status != null">
+                and t1.status = #{bizQueryDTO.status}
+            </if>
+            and t1.status in (1, 2, 3)
         </where>
         order by t1.update_time desc
 

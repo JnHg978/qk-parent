@@ -17,4 +17,6 @@ public interface BizService extends IService<Business> {
     void addBusiness(Business business);
 
     void assign(Integer businessId, Integer userId);
+
+    void back(Integer id);
 }
