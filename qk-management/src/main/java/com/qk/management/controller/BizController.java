@@ -3,13 +3,12 @@ package com.qk.management.controller;
 import com.qk.common.PageResult;
 import com.qk.common.Result;
 import com.qk.dto.business.BizQueryDTO;
+import com.qk.entity.Business;
 import com.qk.management.service.BizService;
 import com.qk.vo.BizVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author: hjh
@@ -29,5 +28,12 @@ public class BizController {
         log.info("分页查询参数：{}", bizQueryDTO);
         PageResult<BizVO> result = bizService.page(bizQueryDTO);
         return Result.success(result);
+    }
+
+    @PostMapping
+    public Result addBusiness(@RequestBody Business business){
+        log.info("保存参数：{}", business);
+        bizService.addBusiness(business);
+        return Result.success();
     }
 }

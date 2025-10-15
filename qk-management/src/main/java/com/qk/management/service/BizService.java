@@ -13,4 +13,6 @@ import com.qk.vo.BizVO;
  */
 public interface BizService extends IService<Business> {
     PageResult<BizVO> page(BizQueryDTO bizQueryDTO);
+
+    void addBusiness(Business business);
 }
