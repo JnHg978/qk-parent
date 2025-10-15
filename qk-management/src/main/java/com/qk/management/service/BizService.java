@@ -1,7 +1,10 @@
 package com.qk.management.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.qk.common.PageResult;
+import com.qk.dto.business.BizQueryDTO;
 import com.qk.entity.Business;
+import com.qk.vo.BizVO;
 
 /**
  * @Author: hjh
@@ -9,4 +12,5 @@ import com.qk.entity.Business;
  * @Description:
  */
 public interface BizService extends IService<Business> {
+    PageResult<BizVO> page(BizQueryDTO bizQueryDTO);
 }
