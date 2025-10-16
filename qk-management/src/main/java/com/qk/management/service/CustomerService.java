@@ -13,4 +13,6 @@ import com.qk.vo.customer.CustomerVO;
  */
 public interface CustomerService extends IService<Customer> {
     PageResult<CustomerVO> page(CustomerQueryDTO customerQueryDTO);
+
+    void addCustomer(Customer customer);
 }
