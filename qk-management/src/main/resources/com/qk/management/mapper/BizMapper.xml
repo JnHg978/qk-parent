@@ -49,6 +49,7 @@
             <if test="dto.subject != null">
                 and t2.subject = #{dto.subject}
             </if>
+            and t1.status = 4
         </where>
         order by t1.update_time desc
     </select>
