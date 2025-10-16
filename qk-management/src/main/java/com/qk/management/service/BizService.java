@@ -2,11 +2,13 @@ package com.qk.management.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qk.common.PageResult;
+import com.qk.dto.business.BizPoolQueryDTO;
 import com.qk.dto.business.BizQueryDTO;
 import com.qk.dto.business.FollowBizDTO;
 import com.qk.entity.Business;
 import com.qk.vo.BizVO;
 import com.qk.vo.business.BizFollowVO;
+import com.qk.vo.business.BizPoolVO;
 
 /**
  * @Author: hjh
@@ -25,4 +27,6 @@ public interface BizService extends IService<Business> {
     BizFollowVO getRecordById(Integer id);
 
     void followBusiness(FollowBizDTO followBizDTO);
+
+    PageResult<BizPoolVO> poolPage(BizPoolQueryDTO bizPoolQueryDTO);
 }

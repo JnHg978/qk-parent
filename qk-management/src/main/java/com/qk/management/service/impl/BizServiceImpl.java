@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qk.common.PageResult;
 import com.qk.constant.BusinessStatusConstants;
+import com.qk.dto.business.BizPoolQueryDTO;
 import com.qk.dto.business.BizQueryDTO;
 import com.qk.dto.business.FollowBizDTO;
 import com.qk.entity.BizTrackRecord;
@@ -18,6 +19,7 @@ import com.qk.management.service.BizService;
 import com.qk.util.CurrentUserHoler;
 import com.qk.vo.BizVO;
 import com.qk.vo.business.BizFollowVO;
+import com.qk.vo.business.BizPoolVO;
 import com.qk.vo.business.BizTrackRecordVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -133,5 +135,15 @@ public class BizServiceImpl extends ServiceImpl<BizMapper, Business> implements 
                 .build();
         baseMapper.updateById(business);
         bizTrackRecordMapper.insert(bizTrackRecord);
+    }
+
+    @Override
+    public PageResult<BizPoolVO> poolPage(BizPoolQueryDTO bizPoolQueryDTO) {
+        Page<BizPoolVO> page = Page.of(bizPoolQueryDTO.getPage(), bizPoolQueryDTO.getPageSize());
+        Page<BizPoolVO> result = baseMapper.selectPoolPage(page, bizPoolQueryDTO);
+        return PageResult.<BizPoolVO>builder()
+                .total(result.getTotal())
+                .rows(result.getRecords())
+                .build();
     }
 }

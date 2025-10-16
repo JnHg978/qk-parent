@@ -2,12 +2,14 @@ package com.qk.management.controller;
 
 import com.qk.common.PageResult;
 import com.qk.common.Result;
+import com.qk.dto.business.BizPoolQueryDTO;
 import com.qk.dto.business.BizQueryDTO;
 import com.qk.dto.business.FollowBizDTO;
 import com.qk.entity.Business;
 import com.qk.management.service.BizService;
 import com.qk.vo.BizVO;
 import com.qk.vo.business.BizFollowVO;
+import com.qk.vo.business.BizPoolVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -65,5 +67,11 @@ public class BizController {
         log.info("修改参数：{}", followBizDTO);
         bizService.followBusiness(followBizDTO);
         return Result.success();
+    }
+
+    @GetMapping("/pool")
+    public Result poolPage(BizPoolQueryDTO bizPoolQueryDTO){
+        PageResult<BizPoolVO> result = bizService.poolPage(bizPoolQueryDTO);
+        return Result.success(result);
     }
 }

@@ -31,4 +31,25 @@
         order by t1.update_time desc
 
     </select>
+    <select id="selectPoolPage" resultType="com.qk.vo.business.BizPoolVO">
+        select t1.id, t1.name, t1.phone, t1.gender, t1.age, t1.wechat, t1.qq, t1.subject,
+        t1.course_id, t1.degree, t1.job_status, t1.channel, t1.remark, t1.status,
+        t1.user_id, t1.clue_id, t1.next_time, t1.create_time, t1.update_time
+        from business t1
+        <where>
+            <if test="dto.businessId != null">
+                and t1.id = #{dto.businessId}
+            </if>
+            <if test="dto.name != null and dto.name != ''">
+                and t1.name like concat('%', #{dto.name}, '%')
+            </if>
+            <if test="dto.phone != null and dto.phone != ''">
+                and t1.phone like concat('%', #{dto.phone}, '%')
+            </if>
+            <if test="dto.subject != null">
+                and t2.subject = #{dto.subject}
+            </if>
+        </where>
+        order by t1.update_time desc
+    </select>
 </mapper>
