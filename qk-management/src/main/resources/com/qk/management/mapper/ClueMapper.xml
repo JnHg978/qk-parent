@@ -44,4 +44,14 @@
         </where>
         order by t1.update_time desc
     </select>
+    <select id="selectClueInfo" resultType="com.qk.domain.ClueInfoDO">
+        select
+            count(1) as clue_total,
+            count(if(status = 1, 1, null)) as clue_wait_allot,
+            count(if(status = 2, 1, null)) as clue_wait_follow,
+            count(if(status = 3, 1, null)) as clue_following,
+            count(if(status = 4, 1, null)) as clue_false,
+            count(if(status = 5, 1, null)) as clue_convert_business
+        from clue;
+    </select>
 </mapper>

@@ -1,4 +1,4 @@
-package com.qk.vo;
+package com.qk.vo.business;
 
 import lombok.Builder;
 import lombok.Data;

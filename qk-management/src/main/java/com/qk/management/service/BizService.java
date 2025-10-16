@@ -6,7 +6,7 @@ import com.qk.dto.business.BizPoolQueryDTO;
 import com.qk.dto.business.BizQueryDTO;
 import com.qk.dto.business.FollowBizDTO;
 import com.qk.entity.Business;
-import com.qk.vo.BizVO;
+import com.qk.vo.business.BizVO;
 import com.qk.vo.business.BizFollowVO;
 import com.qk.vo.business.BizPoolVO;
 

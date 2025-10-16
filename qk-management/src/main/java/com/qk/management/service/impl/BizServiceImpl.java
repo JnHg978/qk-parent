@@ -19,7 +19,7 @@ import com.qk.management.mapper.BizTrackRecordMapper;
 import com.qk.management.mapper.CustomerMapper;
 import com.qk.management.service.BizService;
 import com.qk.util.CurrentUserHoler;
-import com.qk.vo.BizVO;
+import com.qk.vo.business.BizVO;
 import com.qk.vo.business.BizFollowVO;
 import com.qk.vo.business.BizPoolVO;
 import com.qk.vo.business.BizTrackRecordVO;

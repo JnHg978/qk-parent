@@ -1,4 +1,4 @@
-package com.qk.vo;
+package com.qk.vo.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

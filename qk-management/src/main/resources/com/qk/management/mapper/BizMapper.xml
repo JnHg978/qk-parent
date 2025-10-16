@@ -2,7 +2,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qk.management.mapper.BizMapper">
-    <select id="selectPage" resultType="com.qk.vo.BizVO">
+    <select id="selectPage" resultType="com.qk.vo.business.BizVO">
         select t1.id, t1.name, t1.phone, t1.gender, t1.age, t1.wechat, t1.qq, t1.subject,
                t1.course_id, t1.degree, t1.job_status, t1.channel, t1.remark, t1.status,
                t1.user_id, t1.clue_id, t1.next_time, t1.create_time, t1.update_time,
@@ -52,5 +52,15 @@
             and t1.status = 4
         </where>
         order by t1.update_time desc
+    </select>
+    <select id="selectBizInfo" resultType="com.qk.domain.BizInfoDO">
+        select
+            count(1) as business_total,
+            count(if(status = 1, 1, null)) as business_wait_allot,
+            count(if(status = 2, 1, null)) as business_wait_follow,
+            count(if(status = 3, 1, null)) as business_following,
+            count(if(status = 4, 1, null)) as business_false,
+            count(if(status = 5, 1, null)) as business_convert_customer
+        from business;
     </select>
 </mapper>

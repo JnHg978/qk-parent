@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.qk.common.PageResult;
 import com.qk.enums.CommonEnum;
 import com.qk.exception.CommonBizException;
-import com.qk.vo.ActivityVO;
+import com.qk.vo.activity.ActivityVO;
 import com.qk.entity.Activity;
 import com.qk.management.mapper.ActivityMapper;
 import com.qk.management.service.ActivityService;

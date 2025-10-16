@@ -1,7 +1,7 @@
 package com.qk.management.service;
 
 import com.qk.common.PageResult;
-import com.qk.vo.ActivityVO;
+import com.qk.vo.activity.ActivityVO;
 import com.qk.entity.Activity;
 
 import java.util.List;

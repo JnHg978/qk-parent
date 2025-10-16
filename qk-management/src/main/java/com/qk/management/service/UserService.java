@@ -4,8 +4,8 @@ import com.qk.common.PageResult;
 import com.qk.dto.user.LoginDTO;
 import com.qk.dto.user.UserDTO;
 import com.qk.entity.User;
-import com.qk.vo.LoginResultVo;
-import com.qk.vo.UserVO;
+import com.qk.vo.user.LoginResultVo;
+import com.qk.vo.user.UserVO;
 
 import java.util.List;
 

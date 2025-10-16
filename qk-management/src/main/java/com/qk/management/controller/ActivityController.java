@@ -2,7 +2,7 @@ package com.qk.management.controller;
 
 import com.qk.common.PageResult;
 import com.qk.common.Result;
-import com.qk.vo.ActivityVO;
+import com.qk.vo.activity.ActivityVO;
 import com.qk.entity.Activity;
 import com.qk.management.service.ActivityService;
 import lombok.extern.slf4j.Slf4j;
