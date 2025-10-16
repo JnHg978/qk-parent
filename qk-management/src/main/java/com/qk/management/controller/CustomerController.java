@@ -36,4 +36,11 @@ public class CustomerController {
         customerService.addCustomer(customer);
         return Result.success();
     }
+
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id) {
+        log.info("查询客户: {}", id);
+        Customer customer = customerService.getById(id);
+        return Result.success(customer);
+    }
 }
