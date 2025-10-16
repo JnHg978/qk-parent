@@ -22,6 +22,7 @@
             <if test="clueQueryDTO.status != null">
                 and t1.status = #{clueQueryDTO.status}
             </if>
+            and t1.status in (1, 2, 3)
         </where>
         order by t1.update_time desc
     </select>
