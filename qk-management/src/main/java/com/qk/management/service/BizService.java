@@ -29,4 +29,6 @@ public interface BizService extends IService<Business> {
     void followBusiness(FollowBizDTO followBizDTO);
 
     PageResult<BizPoolVO> poolPage(BizPoolQueryDTO bizPoolQueryDTO);
+
+    void convertToCustomer(Integer id);
 }

@@ -74,4 +74,11 @@ public class BizController {
         PageResult<BizPoolVO> result = bizService.poolPage(bizPoolQueryDTO);
         return Result.success(result);
     }
+
+    @PostMapping("/toCustomer/{id}")
+    public Result convertToCustomer(@PathVariable Integer id){
+        log.info("转客户参数：{}", id);
+        bizService.convertToCustomer(id);
+        return Result.success();
+    }
 }

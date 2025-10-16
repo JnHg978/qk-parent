@@ -11,10 +11,12 @@ import com.qk.dto.business.BizQueryDTO;
 import com.qk.dto.business.FollowBizDTO;
 import com.qk.entity.BizTrackRecord;
 import com.qk.entity.Business;
+import com.qk.entity.Customer;
 import com.qk.enums.CommonEnum;
 import com.qk.exception.CommonBizException;
 import com.qk.management.mapper.BizMapper;
 import com.qk.management.mapper.BizTrackRecordMapper;
+import com.qk.management.mapper.CustomerMapper;
 import com.qk.management.service.BizService;
 import com.qk.util.CurrentUserHoler;
 import com.qk.vo.BizVO;
@@ -38,6 +40,9 @@ public class BizServiceImpl extends ServiceImpl<BizMapper, Business> implements 
 
     @Autowired
     private BizTrackRecordMapper bizTrackRecordMapper;
+
+    @Autowired
+    private CustomerMapper customerMapper;
 
     @Override
     public PageResult<BizVO> page(BizQueryDTO bizQueryDTO) {
@@ -145,5 +150,22 @@ public class BizServiceImpl extends ServiceImpl<BizMapper, Business> implements 
                 .total(result.getTotal())
                 .rows(result.getRecords())
                 .build();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void convertToCustomer(Integer id) {
+        Business business = baseMapper.selectById(id);
+        if(ObjectUtil.isEmpty(business)){
+            CommonBizException.throwException(CommonEnum.PARAM_ERROR);
+        }
+        business.setStatus(BusinessStatusConstants.CONVERT_TO_CUSTOMER);
+        baseMapper.updateById(business);
+        Customer customer = BeanUtil.copyProperties(business, Customer.class, "id", "createTime", "updateTime");
+        customer.setBusinessId(business.getId());
+        customer.setCreateTime(LocalDateTime.now());
+        customer.setUpdateTime(LocalDateTime.now());
+        customerMapper.insert(customer);
+
     }
 }
