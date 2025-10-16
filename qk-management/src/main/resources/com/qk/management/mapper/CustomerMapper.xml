@@ -2,4 +2,28 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qk.management.mapper.CustomerMapper">
+    <select id="selectPage" resultType="com.qk.vo.customer.CustomerVO">
+        select t1.id, t1.phone, t1.channel, t1.name, t1.gender,
+               t1.age, t1.wechat, t1.qq, t1.degree, t1.job_status,
+               t1.subject, t1.course_id, t1.business_id, t1.create_time,
+               t1.update_time, t2.name as courseName
+        from customer t1
+            left join course t2
+                on t1.course_id = t2.id
+        <where>
+            <if test="dto.phone != null and dto.phone != ''">
+                and phone like concat('%',#{dto.phone},'%')
+            </if>
+            <if test="dto.name != null and dto.name != ''">
+                and name like concat('%',#{dto.name},'%')
+            </if>
+            <if test="dto.channel != null">
+                and channel = #{dto.channel}
+            </if>
+            <if test="dto.subject != null">
+                and subject = #{dto.subject}
+            </if>
+        </where>
+        order by update_time desc
+    </select>
 </mapper>
