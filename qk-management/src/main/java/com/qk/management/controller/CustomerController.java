@@ -43,4 +43,11 @@ public class CustomerController {
         Customer customer = customerService.getById(id);
         return Result.success(customer);
     }
+
+    @PutMapping
+    public Result updateCustomer(@RequestBody Customer customer) {
+        log.info("更新客户: {}", customer);
+        customerService.updateCustomer(customer);
+        return Result.success();
+    }
 }

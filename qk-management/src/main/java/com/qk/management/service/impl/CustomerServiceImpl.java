@@ -41,4 +41,13 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
         customer.setUpdateTime(LocalDateTime.now());
         baseMapper.insert(customer);
     }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        if (ObjectUtil.isEmpty(customer.getPhone()) || ObjectUtil.isEmpty(customer.getName())){
+            CommonBizException.throwException(CommonEnum.PARAM_ERROR);
+        }
+        customer.setUpdateTime(LocalDateTime.now());
+        baseMapper.updateById(customer);
+    }
 }
