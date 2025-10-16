@@ -7,17 +7,21 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qk.common.PageResult;
 import com.qk.constant.BusinessStatusConstants;
 import com.qk.dto.business.BizQueryDTO;
+import com.qk.dto.business.FollowBizDTO;
+import com.qk.entity.BizTrackRecord;
 import com.qk.entity.Business;
 import com.qk.enums.CommonEnum;
 import com.qk.exception.CommonBizException;
 import com.qk.management.mapper.BizMapper;
 import com.qk.management.mapper.BizTrackRecordMapper;
 import com.qk.management.service.BizService;
+import com.qk.util.CurrentUserHoler;
 import com.qk.vo.BizVO;
 import com.qk.vo.business.BizFollowVO;
 import com.qk.vo.business.BizTrackRecordVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -89,5 +93,45 @@ public class BizServiceImpl extends ServiceImpl<BizMapper, Business> implements 
         return bizFollowVO;
     }
 
-
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void followBusiness(FollowBizDTO followBizDTO) {
+        if(ObjectUtil.isEmpty(followBizDTO.getPhone())
+                || ObjectUtil.isEmpty(followBizDTO.getName())
+                || ObjectUtil.isEmpty(followBizDTO.getTrackStatus())){
+            CommonBizException.throwException(CommonEnum.PARAM_ERROR);
+        }
+        String keyItems = null;
+        if (followBizDTO.getKeyItems().length > 0) {
+            keyItems = String.join(",", followBizDTO.getKeyItems());
+        }
+        BizTrackRecord bizTrackRecord = BizTrackRecord.builder()
+                .businessId(followBizDTO.getId())
+                .userId(CurrentUserHoler.getCurrentUser())
+                .trackStatus(followBizDTO.getTrackStatus())
+                .keyItems(keyItems)
+                .nextTime(followBizDTO.getNextTime())
+                .record(followBizDTO.getRecord())
+                .createTime(LocalDateTime.now())
+                .build();
+        Business business = Business.builder()
+                .id(followBizDTO.getId())
+                .name(followBizDTO.getName())
+                .gender(followBizDTO.getGender())
+                .age(followBizDTO.getAge())
+                .wechat(followBizDTO.getWechat())
+                .qq(followBizDTO.getQq())
+                .subject(followBizDTO.getSubject())
+                .courseId(followBizDTO.getCourseId())
+                .degree(followBizDTO.getDegree())
+                .jobStatus(followBizDTO.getJobStatus())
+                .channel(followBizDTO.getChannel())
+                .remark(followBizDTO.getRemark())
+                .status(BusinessStatusConstants.FOLLOWING)
+                .nextTime(followBizDTO.getNextTime())
+                .updateTime(LocalDateTime.now())
+                .build();
+        baseMapper.updateById(business);
+        bizTrackRecordMapper.insert(bizTrackRecord);
+    }
 }

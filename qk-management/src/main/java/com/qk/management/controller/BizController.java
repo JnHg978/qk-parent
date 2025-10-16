@@ -3,6 +3,7 @@ package com.qk.management.controller;
 import com.qk.common.PageResult;
 import com.qk.common.Result;
 import com.qk.dto.business.BizQueryDTO;
+import com.qk.dto.business.FollowBizDTO;
 import com.qk.entity.Business;
 import com.qk.management.service.BizService;
 import com.qk.vo.BizVO;
@@ -57,5 +58,12 @@ public class BizController {
         log.info("查询参数：{}", id);
         BizFollowVO bizFollowVO = bizService.getRecordById(id);
         return Result.success(bizFollowVO);
+    }
+
+    @PutMapping
+    public Result followBusiness(@RequestBody FollowBizDTO followBizDTO){
+        log.info("修改参数：{}", followBizDTO);
+        bizService.followBusiness(followBizDTO);
+        return Result.success();
     }
 }
