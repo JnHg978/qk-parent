@@ -3,6 +3,7 @@ package com.qk.management.controller;
 import com.qk.common.PageResult;
 import com.qk.common.Result;
 import com.qk.entity.Role;
+import com.qk.management.aop.anno.LogAnno;
 import com.qk.management.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class RoleController {
         return Result.success(result);
     }
 
+    @LogAnno
     @PostMapping
     public Result addRole(@RequestBody Role role){
         log.info("添加角色: {}", role);
@@ -47,6 +49,7 @@ public class RoleController {
         return Result.success(roleList);
     }
 
+    @LogAnno
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id){
         log.info("删除角色, id: {}", id);
@@ -61,6 +64,7 @@ public class RoleController {
         return Result.success(role);
     }
 
+    @LogAnno
     @PutMapping
     public Result updateById(@RequestBody Role role){
         log.info("更新角色: {}", role);

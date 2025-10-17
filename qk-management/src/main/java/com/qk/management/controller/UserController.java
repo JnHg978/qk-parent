@@ -4,6 +4,7 @@ import com.qk.common.PageResult;
 import com.qk.common.Result;
 import com.qk.dto.user.UserDTO;
 import com.qk.entity.User;
+import com.qk.management.aop.anno.LogAnno;
 import com.qk.management.service.UserService;
 import com.qk.vo.user.UserVO;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,7 @@ public class UserController {
         return Result.success(result);
     }
 
+    @LogAnno
     @PostMapping
     public Result addUser(@RequestBody User user) {
         log.info("添加用户: {}", user);
@@ -38,6 +40,7 @@ public class UserController {
         return Result.success();
     }
 
+    @LogAnno
     @DeleteMapping("/{ids}")
     public Result deleteById(@PathVariable("ids") List<Integer> ids) {
         log.info("删除用户的id: {}", ids);
@@ -52,6 +55,7 @@ public class UserController {
         return Result.success(user);
     }
 
+    @LogAnno
     @PutMapping
     public Result updateById(@RequestBody User user) {
         log.info("更新用户: {}", user);

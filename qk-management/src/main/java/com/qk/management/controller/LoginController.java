@@ -2,6 +2,7 @@ package com.qk.management.controller;
 
 import com.qk.common.Result;
 import com.qk.dto.user.LoginDTO;
+import com.qk.management.aop.anno.LogAnno;
 import com.qk.management.service.UserService;
 import com.qk.vo.user.LoginResultVo;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,7 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    @LogAnno
     @PostMapping
     public Result login(@RequestBody LoginDTO loginDTO) {
         log.info("登录开始...");

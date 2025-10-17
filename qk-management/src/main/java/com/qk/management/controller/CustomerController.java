@@ -4,6 +4,7 @@ import com.qk.common.PageResult;
 import com.qk.common.Result;
 import com.qk.dto.customer.CustomerQueryDTO;
 import com.qk.entity.Customer;
+import com.qk.management.aop.anno.LogAnno;
 import com.qk.management.service.CustomerService;
 import com.qk.vo.customer.CustomerVO;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,7 @@ public class CustomerController {
         return Result.success(result);
     }
 
+    @LogAnno
     @PostMapping
     public Result addCustomer(@RequestBody Customer customer) {
         log.info("添加客户: {}", customer);
@@ -44,6 +46,7 @@ public class CustomerController {
         return Result.success(customer);
     }
 
+    @LogAnno
     @PutMapping
     public Result updateCustomer(@RequestBody Customer customer) {
         log.info("更新客户: {}", customer);

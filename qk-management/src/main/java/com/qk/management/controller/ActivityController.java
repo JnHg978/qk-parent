@@ -2,6 +2,7 @@ package com.qk.management.controller;
 
 import com.qk.common.PageResult;
 import com.qk.common.Result;
+import com.qk.management.aop.anno.LogAnno;
 import com.qk.vo.activity.ActivityVO;
 import com.qk.entity.Activity;
 import com.qk.management.service.ActivityService;
@@ -34,6 +35,7 @@ public class ActivityController {
         return Result.success(result);
     }
 
+    @LogAnno
     @PostMapping
     public Result addActivity(@RequestBody Activity activity) {
         log.info("添加活动: {}", activity);
@@ -41,6 +43,7 @@ public class ActivityController {
         return Result.success();
     }
 
+    @LogAnno
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable("id") Integer id) {
         log.info("删除部门的id: {}", id);
@@ -55,6 +58,7 @@ public class ActivityController {
         return Result.success(activity);
     }
 
+    @LogAnno
     @PutMapping
     public Result updateById(@RequestBody Activity activity) {
         log.info("修改部门: {}", activity);

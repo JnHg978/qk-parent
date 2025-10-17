@@ -1,7 +1,9 @@
 package com.qk.management.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qk.entity.OperateLog;
+import com.qk.vo.log.OperateLogVO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -11,4 +13,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface OperateLogMapper extends BaseMapper<OperateLog> {
+    Page<OperateLogVO> page(Page<OperateLogVO> pageParam, String operateUserName);
 }

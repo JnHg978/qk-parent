@@ -3,6 +3,7 @@ package com.qk.management.controller;
 import com.qk.common.PageResult;
 import com.qk.common.Result;
 import com.qk.entity.Dept;
+import com.qk.management.aop.anno.LogAnno;
 import com.qk.management.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class DeptController {
         return Result.success(deptList);
     }
 
+    @LogAnno
     @PutMapping
     public Result updateById(@RequestBody Dept dept){
         log.info("更新部门: {}", dept);
@@ -43,6 +45,7 @@ public class DeptController {
         return Result.success(deptService.selectById(id));
     }
 
+    @LogAnno
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable("id") Integer id){
         log.info("删除部门的id: {}", id);
@@ -60,6 +63,7 @@ public class DeptController {
         return Result.success(result);
     }
 
+    @LogAnno
     @PostMapping
     public Result addDept(@RequestBody Dept dept) {
         log.info("添加部门: {}", dept);

@@ -3,6 +3,7 @@ package com.qk.management.controller;
 import com.qk.common.PageResult;
 import com.qk.common.Result;
 import com.qk.entity.Course;
+import com.qk.management.aop.anno.LogAnno;
 import com.qk.management.service.CourseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class CourseController {
         return Result.success(result);
     }
 
+    @LogAnno
     @PostMapping
     public Result addCourse(@RequestBody Course course) {
         log.info("添加课程: {}", course);
@@ -39,6 +41,7 @@ public class CourseController {
         return Result.success();
     }
 
+    @LogAnno
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable("id") Integer id) {
         log.info("删除课程的id: {}", id);
@@ -52,6 +55,7 @@ public class CourseController {
         return Result.success(courseService.getById(id));
     }
 
+    @LogAnno
     @PutMapping
     public Result updateById(@RequestBody Course course){
         log.info("更新课程: {}", course);
