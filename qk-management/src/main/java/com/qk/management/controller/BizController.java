@@ -6,6 +6,7 @@ import com.qk.dto.business.BizPoolQueryDTO;
 import com.qk.dto.business.BizQueryDTO;
 import com.qk.dto.business.FollowBizDTO;
 import com.qk.entity.Business;
+import com.qk.management.aop.anno.LogAnno;
 import com.qk.management.service.BizService;
 import com.qk.vo.business.BizVO;
 import com.qk.vo.business.BizFollowVO;
@@ -34,6 +35,7 @@ public class BizController {
         return Result.success(result);
     }
 
+    @LogAnno
     @PostMapping
     public Result addBusiness(@RequestBody Business business){
         log.info("保存参数：{}", business);
@@ -41,6 +43,7 @@ public class BizController {
         return Result.success();
     }
 
+    @LogAnno
     @PutMapping("/assign/{businessId}/{userId}")
     public Result assign(@PathVariable Integer businessId, @PathVariable Integer userId){
         log.info("分配参数：businessId={}, userId={}", businessId, userId);
@@ -48,6 +51,7 @@ public class BizController {
         return Result.success();
     }
 
+    @LogAnno
     @PutMapping("/back/{id}")
     public Result back(@PathVariable Integer id){
         log.info("退回参数：{}", id);
@@ -62,6 +66,7 @@ public class BizController {
         return Result.success(bizFollowVO);
     }
 
+    @LogAnno
     @PutMapping
     public Result followBusiness(@RequestBody FollowBizDTO followBizDTO){
         log.info("修改参数：{}", followBizDTO);
@@ -75,6 +80,7 @@ public class BizController {
         return Result.success(result);
     }
 
+    @LogAnno
     @PostMapping("/toCustomer/{id}")
     public Result convertToCustomer(@PathVariable Integer id){
         log.info("转客户参数：{}", id);

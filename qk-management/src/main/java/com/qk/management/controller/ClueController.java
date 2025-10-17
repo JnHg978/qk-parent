@@ -3,6 +3,7 @@ package com.qk.management.controller;
 import com.qk.common.PageResult;
 import com.qk.common.Result;
 import com.qk.dto.clue.*;
+import com.qk.management.aop.anno.LogAnno;
 import com.qk.management.service.ClueService;
 import com.qk.vo.clue.ClueFollowVO;
 import com.qk.vo.clue.CluePoolVO;
@@ -31,6 +32,7 @@ public class ClueController {
         return Result.success(page);
     }
 
+    @LogAnno
     @PostMapping
     public Result save(@RequestBody ClueDTO clueDTO) {
         log.info("新增线索: {}", clueDTO);
@@ -38,6 +40,7 @@ public class ClueController {
         return Result.success();
     }
 
+    @LogAnno
     @PutMapping("/assign/{clueId}/{userId}")
     public Result assign(@PathVariable Integer clueId, @PathVariable Integer userId) {
         log.info("分配线索: {}", clueId);
@@ -45,6 +48,7 @@ public class ClueController {
         return Result.success();
     }
 
+    @LogAnno
     @PutMapping("/false/{id}")
     public Result falseClue(@PathVariable Integer id, @RequestBody FalseClueDTO falseClueDTO) {
         log.info("伪线索: {}", id);
@@ -59,6 +63,7 @@ public class ClueController {
         return Result.success(result);
     }
 
+    @LogAnno
     @PutMapping
     public Result followClue(@RequestBody FollowClueDTO clueDTO) {
         log.info("更新线索: {}", clueDTO);
@@ -66,6 +71,7 @@ public class ClueController {
         return Result.success();
     }
 
+    @LogAnno
     @PutMapping("/toBusiness/{id}")
     public Result convertToBusiness(@PathVariable Integer id) {
         log.info("转商机: {}", id);
