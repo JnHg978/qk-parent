@@ -23,9 +23,9 @@ public class ReportOverviewController {
     private ReportOverviewService reportOverviewService;
 
     @GetMapping
-    public Result getInfo(){
+    public Result getReportOverview(){
         log.info("报表总览");
-        OverviewVO result = reportOverviewService.getInfo();
+        OverviewVO result = reportOverviewService.getReportOverview();
         return Result.success(result);
     }
 }

@@ -8,5 +8,5 @@ import com.qk.vo.Overview.OverviewVO;
  * @Description:
  */
 public interface ReportOverviewService {
-    OverviewVO getInfo();
+    OverviewVO getReportOverview();
 }

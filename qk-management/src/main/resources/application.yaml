@@ -8,6 +8,13 @@ spring:
     username: root
     password: 123456
 
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 0
+      client-type: lettuce
+
 # 配置MyBatis
 mybatis-plus:
   configuration:

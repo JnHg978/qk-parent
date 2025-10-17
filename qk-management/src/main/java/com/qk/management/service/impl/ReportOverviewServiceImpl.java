@@ -25,7 +25,7 @@ public class ReportOverviewServiceImpl implements ReportOverviewService {
     private BizMapper bizMapper;
 
     @Override
-    public OverviewVO getInfo() {
+    public OverviewVO getReportOverview() {
         ClueInfoDO clueInfoDO = clueMapper.selectClueInfo();
         BizInfoDO bizInfoDO = bizMapper.selectBizInfo();
         OverviewVO overviewVO = BeanUtil.copyProperties(clueInfoDO, OverviewVO.class);
