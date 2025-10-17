@@ -2,6 +2,7 @@ package com.qk.management.aop;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
+import com.qk.common.Result;
 import com.qk.vo.Overview.OverviewVO;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -30,7 +31,7 @@ public class ReportOverviewCacheAspect {
     private static final String REDIS_KEY_REPORT_OVERVIEW = "qk:report_overview:";
 
     @Around("execution(* com.qk.management.service.ReportOverviewService.getReportOverview())")
-    public Object getReportOverview(ProceedingJoinPoint pjp) throws Throwable {
+    public Object getReportOverview(ProceedingJoinPoint pjp) {
         // 从redis中获取key为redisKey的值 如果存在则返回 否则执行方法并返回结果
         String redisKey = REDIS_KEY_REPORT_OVERVIEW + "ReportOverview";
 
@@ -43,7 +44,13 @@ public class ReportOverviewCacheAspect {
             log.info("获取报表总览缓存失败");
         }
 
-        Object result = pjp.proceed();
+        Object result = null;
+        try {
+            result = pjp.proceed();
+        } catch (Throwable e) {
+            return Result.error("网络异常");
+        }
+
         try {
             redisTemplate.opsForValue().set(redisKey, JSONUtil.toJsonStr(result), Duration.ofMinutes(30));
         } catch (Exception e) {
